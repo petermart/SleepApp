@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Settings
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page6">
+  <form id="settings-form4">
+    <ion-item id="settings-toggle5">
+      <ion-label>
+        Notifications
+      </ion-label>
+      <ion-toggle color="positive" checked="false"></ion-toggle>
+    </ion-item>
+    <ion-item id="settings-toggle6">
+      <ion-label>
+        Dark Theme
+      </ion-label>
+      <ion-toggle (click)="updateTheme()" [checked]="darktheme" color="positive" checked="false"></ion-toggle>
+    </ion-item>
+    <ion-item id="settings-toggle7">
+      <ion-label>
+        Sleep Tracking
+      </ion-label>
+      <ion-toggle color="positive" checked="false"></ion-toggle>
+    </ion-item>
+    <ion-item id="settings-toggle8">
+      <ion-label>
+        Bluetooth enabled
+      </ion-label>
+      <ion-toggle color="positive" checked="true"></ion-toggle>
+    </ion-item>
+  </form>
+</ion-content>

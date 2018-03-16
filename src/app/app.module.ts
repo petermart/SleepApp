@@ -1,16 +1,31 @@
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
-
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { AlarmsPage } from '../pages/alarms/alarms';
+import { SchedulePage } from '../pages/schedule/schedule';
+import { TrackingPage } from '../pages/tracking/tracking';
+import { TabsControllerPage } from '../pages/tabs-controller/tabs-controller';
+import { HealthAdvicePage } from '../pages/health-advice/health-advice';
+import { SettingsPage } from '../pages/settings/settings';
+import { AlarmPage } from '../pages/alarm/alarm';
+import { BackgroundMode } from '@ionic-native/background-mode';
+
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { AppSettingsProvider } from '../providers/app-settings/app-settings';
+import { SleepTrackingProvider } from '../providers/sleep-tracking/sleep-tracking';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    AlarmsPage,
+    SchedulePage,
+    TrackingPage,
+    TabsControllerPage,
+    HealthAdvicePage,
+    SettingsPage,
+    AlarmPage
   ],
   imports: [
     BrowserModule,
@@ -19,12 +34,21 @@ import { HomePage } from '../pages/home/home';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    AlarmsPage,
+    SchedulePage,
+    TrackingPage,
+    TabsControllerPage,
+    HealthAdvicePage,
+    SettingsPage,
+    AlarmPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AppSettingsProvider,
+      BackgroundMode,
+    SleepTrackingProvider
   ]
 })
 export class AppModule {}
