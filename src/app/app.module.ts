@@ -10,11 +10,13 @@ import { HealthAdvicePage } from '../pages/health-advice/health-advice';
 import { SettingsPage } from '../pages/settings/settings';
 import { AlarmPage } from '../pages/alarm/alarm';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { NativeAudio } from "@ionic-native/native-audio";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppSettingsProvider } from '../providers/app-settings/app-settings';
 import { SleepTrackingProvider } from '../providers/sleep-tracking/sleep-tracking';
+import { AlarmProvider } from '../providers/alarm/alarm';
 
 @NgModule({
   declarations: [
@@ -47,8 +49,10 @@ import { SleepTrackingProvider } from '../providers/sleep-tracking/sleep-trackin
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AppSettingsProvider,
-      BackgroundMode,
-    SleepTrackingProvider
+    BackgroundMode,
+    NativeAudio,
+    SleepTrackingProvider,
+    AlarmProvider
   ]
 })
 export class AppModule {}
