@@ -11,12 +11,14 @@ import { SettingsPage } from '../pages/settings/settings';
 import { AlarmPage } from '../pages/alarm/alarm';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { NativeAudio } from "@ionic-native/native-audio";
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppSettingsProvider } from '../providers/app-settings/app-settings';
 import { SleepTrackingProvider } from '../providers/sleep-tracking/sleep-tracking';
 import { AlarmProvider } from '../providers/alarm/alarm';
+import { LightProvider } from '../providers/light/light';
 
 @NgModule({
   declarations: [
@@ -51,8 +53,10 @@ import { AlarmProvider } from '../providers/alarm/alarm';
     AppSettingsProvider,
     BackgroundMode,
     NativeAudio,
+    BluetoothSerial,
     SleepTrackingProvider,
-    AlarmProvider
+    AlarmProvider,
+    LightProvider
   ]
 })
 export class AppModule {}
