@@ -14,10 +14,10 @@
       <ion-toggle color="positive" checked="false"></ion-toggle>
     </ion-item>
     <ion-item id="settings-toggle6">
-      <ion-label>
+      <ion-label (click)="updateTheme()">
         Dark Theme
       </ion-label>
-      <ion-toggle (click)="updateTheme()" [checked]="darktheme" color="positive" checked="false"></ion-toggle>
+        <ion-toggle (ionChange)="updateTheme()" [checked]="darktheme"></ion-toggle>
     </ion-item>
     <ion-item id="settings-toggle7">
       <ion-label>

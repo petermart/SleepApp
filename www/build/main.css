@@ -1,3 +1,25 @@
+.dark-theme ion-content, .dark-theme ion-item {
+  background-color: #090f2f;
+  color: #fff;
+}
+
+.dark-theme .toolbar-title {
+  color: #fff;
+}
+
+.dark-theme .header .toolbar-background {
+  border-color: #ff0fff;
+  background-color: #090f2f;
+}
+
+.light-theme ion-content {
+  background-color: #fff;
+}
+
+.light-theme .toolbar-background {
+  background-color: #fff;
+}
+
 .ion-ios-add:before {
   content: "\f102";
 }
