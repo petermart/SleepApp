@@ -19,6 +19,8 @@ import { AppSettingsProvider } from '../providers/app-settings/app-settings';
 import { SleepTrackingProvider } from '../providers/sleep-tracking/sleep-tracking';
 import { AlarmProvider } from '../providers/alarm/alarm';
 import { LightProvider } from '../providers/light/light';
+import { SqldatabaseProvider } from '../providers/sqldatabase/sqldatabase';
+import { Http, Request, RequestMethod } from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { LightProvider } from '../providers/light/light';
     BluetoothSerial,
     SleepTrackingProvider,
     AlarmProvider,
-    LightProvider
+    LightProvider,
+    SqldatabaseProvider
   ]
 })
 export class AppModule {}

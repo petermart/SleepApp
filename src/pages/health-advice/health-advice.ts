@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { FeedPage} from "../feed/feed";
 
 @Component({
   selector: 'page-health-advice',
@@ -10,5 +11,9 @@ export class HealthAdvicePage {
   // should be each tab's root Page
   constructor(public navCtrl: NavController) {
   }
-  
+
+    public feed() {
+        this.navCtrl.push(FeedPage);
+    }
+
 }
