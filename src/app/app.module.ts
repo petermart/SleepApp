@@ -7,11 +7,24 @@ import { SchedulePage } from '../pages/schedule/schedule';
 import { TrackingPage } from '../pages/tracking/tracking';
 import { TabsControllerPage } from '../pages/tabs-controller/tabs-controller';
 import { HealthAdvicePage } from '../pages/health-advice/health-advice';
+import { CategoryPage } from '../pages/category/category';
+
 import { SettingsPage } from '../pages/settings/settings';
 import { AlarmPage } from '../pages/alarm/alarm';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { NativeAudio } from "@ionic-native/native-audio";
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+
+//Storage Module
+import {IonicStorageModule} from '@ionic/storage';
+
+//Modal Controller
+import {FeedAdderModalComponent} from '../components/feed-adder-modal/feed-adder-modal';
+
+import {HttpModule} from '@angular/http';
+
+// For form processing
+import { FormsModule }   from '@angular/forms';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,11 +44,17 @@ import { Http, Request, RequestMethod } from "@angular/http";
     TabsControllerPage,
     HealthAdvicePage,
     SettingsPage,
-    AlarmPage
+    AlarmPage,
+      CategoryPage,
+      FeedAdderModalComponent
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+      HttpModule,
+      FormsModule,
+
+    IonicModule.forRoot(MyApp),
+      IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,7 +65,9 @@ import { Http, Request, RequestMethod } from "@angular/http";
     TabsControllerPage,
     HealthAdvicePage,
     SettingsPage,
-    AlarmPage
+    AlarmPage,
+      CategoryPage,
+      FeedAdderModalComponent
   ],
   providers: [
     StatusBar,

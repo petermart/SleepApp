@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar color = "primary">
+    <ion-title>
+      Add a RSS Feed
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item>
+
+    <ion-label>RSS Link: </ion-label>
+    <ion-input type = "text" [(ngModel)] = "rss_link.link"></ion-input>
+
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Category: </ion-label>
+    <ion-input type = "text" placeholder = "sports" [(ngModel)] = "rss_link.category"></ion-input>
+  </ion-item>
+
+
+  <ion-footer>
+    <ion-row>
+      <button (click) = "submitRSSFeed()" col margin ion-button color = "primary">Submit</button>
+      <button (click) = "cancel()" col margin ion-button color = "danger">Cancel</button>
+    </ion-row>
+  </ion-footer>
+
+</ion-content>
