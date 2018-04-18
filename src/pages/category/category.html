@@ -20,24 +20,12 @@
   </div>
 
   <ion-row *ngFor = "let article of article_list">
-    <ion-col>
-
-    </ion-col>
     <ion-card col-md-8>
-
       <ion-card-content>
-        <ion-grid>
-          <ion-row>
             <div [innerHTML]="article.description"></div>
             <!--<p class = "articlecontent" col-12> {{article.description}}</p>-->
-          </ion-row>
-        </ion-grid>
       </ion-card-content>
-
     </ion-card>
-    <ion-col>
-
-    </ion-col>
   </ion-row>
 
 

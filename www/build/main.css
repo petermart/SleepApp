@@ -7,6 +7,10 @@
   color: #fff;
 }
 
+.dark-theme ion-card {
+  background-color: #111118;
+}
+
 .dark-theme .header .toolbar-background {
   border-color: #ff7700;
   background-color: #090f2f;

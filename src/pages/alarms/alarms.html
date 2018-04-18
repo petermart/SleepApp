@@ -4,7 +4,7 @@
       Alarms
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button icon-only on-click="goToAlarm()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -35,7 +35,4 @@
       <ion-toggle color="positive" checked="true"></ion-toggle>
     </ion-item>
   </form>
-  <button id="alarms-button4" ion-button color="positive" block on-click="goToAlarm()">
-    Alarm Options
-  </button>
 </ion-content>

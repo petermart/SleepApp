@@ -6,16 +6,15 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
-
+<ion-content padding id="page5">
+  <br/>
+  <h1 style = "text-align: center; font-size: 5em;"><ion-icon name = "heart"></ion-icon></h1>
+  <br/>
   <ion-list>
-    <button mode = "ios" (click) = "categoryClick(category)" class = "category-item" *ngFor = "let category of categories" ion-item>
+    <ion-item mode = "ios" (click) = "categoryClick(category)" class = "category-item" *ngFor = "let category of categories" ion-item>
       {{category}}
-    </button>
+    </ion-item>
 
   </ion-list>
-  <p>That was fun</p>
-
 
 </ion-content>
