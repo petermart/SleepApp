@@ -14,6 +14,7 @@ import { AlarmPage } from '../pages/alarm/alarm';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { NativeAudio } from "@ionic-native/native-audio";
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
+import { LocalNotifications} from "@ionic-native/local-notifications";
 
 //Storage Module
 import {IonicStorageModule} from '@ionic/storage';
@@ -80,7 +81,8 @@ import { Http, Request, RequestMethod } from "@angular/http";
     SleepTrackingProvider,
     AlarmProvider,
     LightProvider,
-    SqldatabaseProvider
+    SqldatabaseProvider,
+      LocalNotifications
   ]
 })
 export class AppModule {}

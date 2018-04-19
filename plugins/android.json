@@ -36,6 +36,9 @@
     },
     "cordova-plugin-ionic-webview": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {
@@ -43,6 +46,9 @@
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-device": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-badge": {
       "PACKAGE_NAME": "io.ionic.starter"
     }
   }
