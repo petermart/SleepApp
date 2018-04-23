@@ -1,0 +1,12 @@
+{
+    "Security.framework": 1,
+    "SystemConfiguration.framework": 1,
+    "CoreBluetooth.framework": 1,
+    "WebKit.framework": 1,
+    "libz.tbd": 1,
+    "UserNotifications.framework": 1,
+    "CoreLocation.framework": 1,
+    "Foundation.framework": 1,
+    "AVFoundation.framework": 1,
+    "AudioToolbox.framework": 1
+}

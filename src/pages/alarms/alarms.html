@@ -11,28 +11,14 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page2">
-  <div id="alarms-container1">
+  <div id="alarms-container1" *ngFor = "let alarm of alarms">
     <form id="alarms-form1">
       <ion-item id="alarms-toggle2">
         <ion-label>
-          6:30
+          {{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[0]}}:{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[1]}} {{alarm.alarmTime.toLocaleString().split(", ")[1].split(" ")[1]}}
         </ion-label>
         <ion-toggle color="positive" checked="true"></ion-toggle>
       </ion-item>
     </form>
   </div>
-  <form id="alarms-form2">
-    <ion-item id="alarms-toggle3">
-      <ion-label>
-        7:30
-      </ion-label>
-      <ion-toggle color="positive" checked="false"></ion-toggle>
-    </ion-item>
-    <ion-item id="alarms-toggle4">
-      <ion-label>
-        10:30 (Saturday only)
-      </ion-label>
-      <ion-toggle color="positive" checked="true"></ion-toggle>
-    </ion-item>
-  </form>
 </ion-content>

@@ -5,6 +5,7 @@ export class AlarmObject {
 
     public alarmTime:Date;
     public repeatDays:boolean[];
+    // Exclude days
     public soundPath:string;
     public geo:Geosensitive;
 
