@@ -1376,13 +1376,15 @@ var AlarmProvider = (function () {
         });*/
     }
     AlarmProvider.prototype.disableAllNotifications = function () {
-        /*this.localNotifications.getAllTriggered().then((array)=>{
-            if (array.length > 2)
-            {
-                this.localNotifications.clearAll();
-                this.localNotifications.cancelAll();
+        var _this = this;
+        this.localNotifications.clearAll();
+        this.localNotifications.cancelAll();
+        this.localNotifications.getAllTriggered().then(function (array) {
+            if (array.length > 2) {
+                _this.localNotifications.clearAll();
+                _this.localNotifications.cancelAll();
             }
-        });*/
+        });
     };
     AlarmProvider.prototype.doSomething = function () {
         if (this.bg.isScreenOff()) {
@@ -1491,7 +1493,7 @@ var AlarmProvider = (function () {
             var g = new Date(this.alarms[maxIndex].alarmTime);
             this.nextAlarmTime = g.getTime();
             console.log('Max index: ' + maxIndex);
-            for (var x = 1; x <= 2; x++) {
+            for (var x = 1; x <= 60; x++) {
                 this.localNotifications.schedule({
                     id: x * 1000,
                     title: 'Ring ring!',

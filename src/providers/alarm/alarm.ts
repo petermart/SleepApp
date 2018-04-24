@@ -35,13 +35,15 @@ export class AlarmProvider {
 
     disableAllNotifications()
     {
-        /*this.localNotifications.getAllTriggered().then((array)=>{
+        this.localNotifications.clearAll();
+        this.localNotifications.cancelAll();
+        this.localNotifications.getAllTriggered().then((array)=>{
             if (array.length > 2)
             {
                 this.localNotifications.clearAll();
                 this.localNotifications.cancelAll();
             }
-        });*/
+        });
     }
 
     doSomething() {
@@ -170,7 +172,7 @@ export class AlarmProvider {
         let g = new Date(this.alarms[maxIndex].alarmTime);
         this.nextAlarmTime = g.getTime();
         console.log('Max index: '+maxIndex);
-        for (let x = 1; x <= 2; x++) {
+        for (let x = 1; x <= 60; x++) {
             this.localNotifications.schedule({
                 id: x * 1000,
                 title: 'Ring ring!',
