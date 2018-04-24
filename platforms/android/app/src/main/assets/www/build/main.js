@@ -173,11 +173,11 @@ var AlarmProvider = (function () {
         var temp = Date.now() * Date.now(); //Just a big number
         var finalIndex = 0;
         var index = 0;
-        for (var _i = 0, _a = this.alarms; _i < _a.length; _i++) {
-            var alarm = _a[_i];
-            if (alarm.alarmTime.getTime() < temp) {
-                console.log('Heyo');
-            }
+        for (var index_1 = 0; index_1 < this.alarms.length; index_1++) {
+            //if (temp != Math.min(temp, this.alarms[index].alarmTime.getTime()))
+            //{
+            finalIndex = index_1;
+            //}
         }
         this.nextAlarmIndex = finalIndex;
     };

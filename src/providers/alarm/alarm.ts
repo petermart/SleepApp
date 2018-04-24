@@ -15,6 +15,7 @@ export class AlarmProvider {
     public timer:number;
     private alarms:AlarmObject[] = [];
     public nextAlarmIndex:number;
+    public nextAlarmTime:number;
 
 
     constructor(public bg: BackgroundMode, public nativeAudio: NativeAudio, public localNotifications: LocalNotifications, private storage:Storage) {
@@ -127,18 +128,40 @@ export class AlarmProvider {
 
   updateAlarms()
   {
-      let temp = Date.now()*Date.now(); //Just a big number
-      let finalIndex = 0;
       let index = 0;
+      let shortTermMin = Date.now()*Date.now();
+      let prevMin = shortTermMin;
+      let maxIndex = 0;
+      let temp;
       for (let alarm of this.alarms)
       {
-          if (alarm.alarmTime.getTime() < temp)
-          {
-              console.log('Heyo')
-          }
-
+          console.log("Current idnex: "+index);
+          console.log("Alarm date: "+this.alarms[index].alarmTime)
+          let g = new Date(alarm.alarmTime);
+          console.log("G time "+g.getTime());
+          prevMin = shortTermMin;
+          shortTermMin = Math.min(shortTermMin, g.getTime() );
+          temp = Math.abs(prevMin - shortTermMin);
+          console.log("Change = "+temp);
+          temp = temp/(Math.max(1,temp));
+          console.log("Mathematics: " + temp);
+          maxIndex = Math.max(temp*index, maxIndex);
+          console.log(maxIndex);
+          index ++;
       }
-      this.nextAlarmIndex = finalIndex;
+      this.nextAlarmIndex = maxIndex;
+      let g = new Date(this.alarms[maxIndex].alarmTime);
+      this.nextAlarmTime = g.getTime();
+      console.log('Max index: '+maxIndex);
+      for (let x = 1; x <= 2; x++) {
+          this.localNotifications.schedule({
+              id: x * 1000,
+              title: 'Ring ring!',
+              text: 'Time to wake up!',
+              trigger: {at: new Date(this.nextAlarmTime + x * 2000)},
+              data: {mydata: 'My hidden message this is'}
+          });
+      }
   }
 
     updateAlarmsTemplate()
@@ -162,13 +185,12 @@ export class AlarmProvider {
         this.nextAlarmIndex = finalIndex;
         //this.localNotifications.cancelAll();
 
-        //for (let x = 1; x <= 2; x++)
-        let x = 1;
+        for (let x = 1; x <= 2; x++)
         this.localNotifications.schedule({
             id: x*1000,
             title: 'Ring ring!',
             text: 'Time to wake up!',
-            trigger: {at: new Date(this.alarms[0].alarmTime.getTime() + x * 2000)},
+            trigger: {at: new Date(this.alarms[this.nextAlarmIndex].alarmTime.getTime() + x * 2000)},
             data: {mydata: 'My hidden message this is'}
         });
     }

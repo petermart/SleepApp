@@ -170,16 +170,40 @@ var AlarmProvider = (function () {
         return alarmTime.toLocaleString().split(", ")[1].split(":")[0] + ":" + alarmTime.toLocaleString().split(", ")[1].split(":")[1] + " " + alarmTime.toLocaleString().split(", ")[1].split(" ")[1];
     };
     AlarmProvider.prototype.updateAlarms = function () {
-        var temp = Date.now() * Date.now(); //Just a big number
-        var finalIndex = 0;
         var index = 0;
+        var shortTermMin = Date.now() * Date.now();
+        var prevMin = shortTermMin;
+        var maxIndex = 0;
+        var temp;
         for (var _i = 0, _a = this.alarms; _i < _a.length; _i++) {
             var alarm = _a[_i];
-            if (alarm.alarmTime.getTime() < temp) {
-                console.log('Heyo');
-            }
+            console.log("Current idnex: " + index);
+            console.log("Alarm date: " + this.alarms[index].alarmTime);
+            var g_1 = new Date(alarm.alarmTime);
+            console.log("G time " + g_1.getTime());
+            prevMin = shortTermMin;
+            shortTermMin = Math.min(shortTermMin, g_1.getTime());
+            temp = Math.abs(prevMin - shortTermMin);
+            console.log("Change = " + temp);
+            temp = temp / (Math.max(1, temp));
+            console.log("Mathematics: " + temp);
+            maxIndex = Math.max(temp * index, maxIndex);
+            console.log(maxIndex);
+            index++;
         }
-        this.nextAlarmIndex = finalIndex;
+        this.nextAlarmIndex = maxIndex;
+        var g = new Date(this.alarms[maxIndex].alarmTime);
+        this.nextAlarmTime = g.getTime();
+        console.log('Max index: ' + maxIndex);
+        for (var x = 1; x <= 2; x++) {
+            this.localNotifications.schedule({
+                id: x * 1000,
+                title: 'Ring ring!',
+                text: 'Time to wake up!',
+                trigger: { at: new Date(this.nextAlarmTime + x * 2000) },
+                data: { mydata: 'My hidden message this is' }
+            });
+        }
     };
     AlarmProvider.prototype.updateAlarmsTemplate = function () {
         //getLocation
@@ -198,21 +222,21 @@ var AlarmProvider = (function () {
         }
         this.nextAlarmIndex = finalIndex;
         //this.localNotifications.cancelAll();
-        //for (let x = 1; x <= 2; x++)
-        var x = 1;
-        this.localNotifications.schedule({
-            id: x * 1000,
-            title: 'Ring ring!',
-            text: 'Time to wake up!',
-            trigger: { at: new Date(this.alarms[0].alarmTime.getTime() + x * 2000) },
-            data: { mydata: 'My hidden message this is' }
-        });
+        for (var x = 1; x <= 2; x++)
+            this.localNotifications.schedule({
+                id: x * 1000,
+                title: 'Ring ring!',
+                text: 'Time to wake up!',
+                trigger: { at: new Date(this.alarms[this.nextAlarmIndex].alarmTime.getTime() + x * 2000) },
+                data: { mydata: 'My hidden message this is' }
+            });
     };
     AlarmProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ionic_native_background_mode__["a" /* BackgroundMode */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_audio__["a" /* NativeAudio */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_local_notifications__["a" /* LocalNotifications */], __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_background_mode__["a" /* BackgroundMode */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_background_mode__["a" /* BackgroundMode */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_audio__["a" /* NativeAudio */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_audio__["a" /* NativeAudio */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_local_notifications__["a" /* LocalNotifications */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_local_notifications__["a" /* LocalNotifications */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */]) === "function" && _d || Object])
     ], AlarmProvider);
     return AlarmProvider;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=alarm.js.map
@@ -743,7 +767,7 @@ var TrackingPage = (function () {
     }
     TrackingPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-tracking',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\tracking\tracking.html"*/`<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Tracking\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding style="background:url(assets/img/mT8etT5Cs3CubTnpAdwq_graph20120copy.png) no-repeat center;background-size:cover;" id="page4">\n\n  <div style="width:100%;height:220px;margin:0px 0px;line-height:250px;background-color:#e8ebef;text-align:center;">\n\n    <i class="icon ion-image" style="font-size:64px;color:#888;vertical-align:middle;"></i>\n\n  </div>\n\n  <h3 id="tracking-heading3" style="color:#000000;text-align:center;">\n\n    Hours Slept in the Past Week\n\n  </h3>\n\n  <img src="assets/img/TkBkUjfREyVhnnkReoLI_graph1copy.png" style="display:block;width:100%;height:300%;margin-left:auto;margin-right:auto;" />\n\n  <div id="tracking-markdown1" class="show-list-numbers-and-dots">\n\n    <p style="color:#000000;">\n\n      You are not getting enough sleep on\n\n      <strong>\n\n        weekdays\n\n      </strong>\n\n      . Try reserving extra time to sleep.\n\n    </p>\n\n  </div>\n\n  <h3 id="tracking-heading1" style="color:#000000;"></h3>\n\n  <h3 id="tracking-heading2" style="color:#000000;">\n\n    You have missed out on 6.3 hours this week.\n\n  </h3>\n\n</ion-content>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\tracking\tracking.html"*/
+            selector: 'page-tracking',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\tracking\tracking.html"*/`<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Tracking\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding id="page4">\n\n <h1 style ="text-align: center;">Welcome to the Sleep Tracker!</h1>\n\n  <br/><br/>\n\n  <h3>Enable REM Awake to wake you up at the end of your REM cycle, so you feel rejuvenated and energetic all day long.</h3>\n\n  <ion-item id="alarms-toggle2">\n\n    <ion-label>\n\n      REM Awake\n\n    </ion-label>\n\n    <ion-toggle color="positive" checked="true"></ion-toggle>\n\n  </ion-item>\n\n  <br/><br/><br/><br/><br/><br/><br/><br/>\n\n  <h2 style = "text-align: center;">Start Sleeping!</h2>\n\n  <h1 style = "text-align: center;"><button class="circlebutton" icon-only on-click="goToAlarm()">\n\n    <ion-icon name="disk" large></ion-icon>\n\n  </button></h1>\n\n</ion-content>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\tracking\tracking.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]])
     ], TrackingPage);
