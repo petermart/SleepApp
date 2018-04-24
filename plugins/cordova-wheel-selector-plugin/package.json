@@ -1,0 +1,59 @@
+{
+  "_from": "cordova-wheel-selector-plugin",
+  "_id": "cordova-wheel-selector-plugin@1.1.0",
+  "_inBundle": false,
+  "_integrity": "sha512-5cb72S+0a9Q7izW7OgGRQie06omba5JzWi4utB81CcMbR2N2u43ER5Xw18SppR98FjhnqxivYvg7H3Gs6tDZtg==",
+  "_location": "/cordova-wheel-selector-plugin",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-wheel-selector-plugin",
+    "name": "cordova-wheel-selector-plugin",
+    "escapedName": "cordova-wheel-selector-plugin",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-wheel-selector-plugin/-/cordova-wheel-selector-plugin-1.1.0.tgz",
+  "_shasum": "bda3e36e810f6b77a6b9192b1c3e9d9fa74940ca",
+  "_spec": "cordova-wheel-selector-plugin",
+  "_where": "C:\\Users\\Peter\\Documents\\GitHub\\SleepApp",
+  "author": {
+    "name": "Jason Amy"
+  },
+  "bugs": {
+    "url": "https://github.com/jasonmamy/cordova-wheel-selector-plugin/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-wheel-selector-plugin",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "A native Android/iOS wheel selector plugin for Cordova or Ionic projects (pick numbers, strings, etc)",
+  "homepage": "https://github.com/jasonmamy/cordova-wheel-selector-plugin#readme",
+  "keywords": [
+    "picker",
+    "numberpicker",
+    "stringpicker",
+    "wheelpicker",
+    "ios",
+    "android",
+    "wheelselector"
+  ],
+  "license": "MIT",
+  "name": "cordova-wheel-selector-plugin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasonmamy/cordova-wheel-selector-plugin.git"
+  },
+  "version": "1.1.0"
+}

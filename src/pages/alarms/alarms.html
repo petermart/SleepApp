@@ -11,14 +11,21 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page2">
-  <div id="alarms-container1" *ngFor = "let alarm of alarms">
-    <form id="alarms-form1">
-      <ion-item id="alarms-toggle2">
-        <ion-label>
-          {{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[0]}}:{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[1]}} {{alarm.alarmTime.toLocaleString().split(", ")[1].split(" ")[1]}}
-        </ion-label>
-        <ion-toggle color="positive" checked="true"></ion-toggle>
-      </ion-item>
-    </form>
-  </div>
+
+  <ion-list id="alarms-container1" *ngFor = "let alarm of alarms; let i = index" style ="border-top-width: 1px; border-top-style: solid">
+      <ion-item-sliding>
+        <ion-item id="alarms-toggle2">
+          <ion-label>
+            {{alarm.stringTime}}<br/>
+            Active: {{alarm.active}}<br/>
+            Enabled: {{alarm.enabled}}
+            <!--{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[0]}}:{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[1]}} {{alarm.alarmTime.toLocaleString().split(", ")[1].split(" ")[1]}}-->
+          </ion-label>
+          <ion-toggle color="positive" [checked]="alarm.enabled" (ionChange)="changeAlarmStatus(i)"></ion-toggle>
+        </ion-item>
+        <ion-item-options side="left">
+          <button ion-button color="danger" (click)="removeAlarm(i)">DELETE</button>
+        </ion-item-options>
+      </ion-item-sliding>
+  </ion-list>
 </ion-content>

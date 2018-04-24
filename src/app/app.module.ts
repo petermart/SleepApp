@@ -15,6 +15,7 @@ import { BackgroundMode } from '@ionic-native/background-mode';
 import { NativeAudio } from "@ionic-native/native-audio";
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { LocalNotifications} from "@ionic-native/local-notifications";
+import { DatePicker } from '@ionic-native/date-picker';
 
 //Storage Module
 import {IonicStorageModule} from '@ionic/storage';
@@ -82,6 +83,7 @@ import { Http, Request, RequestMethod } from "@angular/http";
     AlarmProvider,
     LightProvider,
     SqldatabaseProvider,
+      DatePicker,
       LocalNotifications
   ]
 })

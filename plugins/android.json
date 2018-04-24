@@ -39,6 +39,12 @@
     },
     "cordova-plugin-local-notification": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-wheel-selector-plugin": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-datepicker": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {

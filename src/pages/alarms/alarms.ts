@@ -13,12 +13,14 @@ export class AlarmsPage {
   alarms:AlarmObject[];
 
   constructor(public navCtrl: NavController, public almProvider: AlarmProvider) {
-    almProvider.getAlarms().then(
-        (alarms) => this.alarms = alarms
-    );
+
   }
 
   ionViewWillEnter()
+  {
+      this.fetchAlarms();
+  }
+  fetchAlarms()
   {
       this.almProvider.getAlarms().then(
           (alarms) => this.alarms = alarms
@@ -27,5 +29,20 @@ export class AlarmsPage {
   goToAlarm(params){
     if (!params) params = {};
     this.navCtrl.push(AlarmPage);
+  }
+  removeAlarm(index:number)
+  {
+    this.almProvider.removeAlarm(index);
+    this.fetchAlarms();
+  }
+  updateAlarms()
+  {
+    this.almProvider.updateAlarms();
+    this.fetchAlarms();
+  }
+  changeAlarmStatus(index:number)
+  {
+    this.almProvider.enableAlarm(index);
+    this.fetchAlarms();
   }
 }

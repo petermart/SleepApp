@@ -67,6 +67,14 @@
             {
               "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"SelectorCordovaPlugin\"><param name=\"android-package\" value=\"com.wellseek.cordova.SelectorCordovaPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"DatePickerPlugin\"><param name=\"android-package\" value=\"com.plugin.datepicker.DatePickerPlugin\" /></feature>",
+              "count": 1
             }
           ],
           "/widget": [
@@ -182,6 +190,12 @@
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-wheel-selector-plugin": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-datepicker": {
       "PACKAGE_NAME": "io.ionic.starter"
     }
   },
@@ -503,6 +517,23 @@
         "cordova.plugins.notification.local.core",
         "plugin.notification.local.core"
       ]
+    },
+    {
+      "id": "cordova-wheel-selector-plugin.plugin",
+      "file": "plugins/cordova-wheel-selector-plugin/www/selectorplugin.js",
+      "pluginId": "cordova-wheel-selector-plugin",
+      "clobbers": [
+        "SelectorCordovaPlugin"
+      ],
+      "runs": true
+    },
+    {
+      "id": "cordova-plugin-datepicker.DatePicker",
+      "file": "plugins/cordova-plugin-datepicker/www/android/DatePicker.js",
+      "pluginId": "cordova-plugin-datepicker",
+      "clobbers": [
+        "datePicker"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -519,6 +550,8 @@
     "cordova-plugin-splashscreen": "4.0.3",
     "cordova-plugin-ionic-webview": "1.2.0",
     "cordova-plugin-badge": "0.8.7",
-    "cordova-plugin-local-notification": "0.9.0-beta.2"
+    "cordova-plugin-local-notification": "0.9.0-beta.2",
+    "cordova-wheel-selector-plugin": "1.0.0",
+    "cordova-plugin-datepicker": "0.9.3"
   }
 }

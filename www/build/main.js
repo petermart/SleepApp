@@ -6,7 +6,7 @@ webpackJsonp([1],{
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppSettingsProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__ = __webpack_require__(261);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__ = __webpack_require__(416);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -51,15 +51,13 @@ var AppSettingsProvider = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AlarmProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_alarmObject__ = __webpack_require__(692);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_geosensitive__ = __webpack_require__(693);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_alarmObject__ = __webpack_require__(693);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_geosensitive__ = __webpack_require__(694);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_background_mode__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_audio__ = __webpack_require__(356);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__ = __webpack_require__(261);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_local_notifications__ = __webpack_require__(357);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_audio__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_local_notifications__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(114);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -76,21 +74,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var AlarmProvider = (function () {
     function AlarmProvider(bg, nativeAudio, localNotifications, storage) {
         //alarms = storage alarms;
-        var _this = this;
         this.bg = bg;
         this.nativeAudio = nativeAudio;
         this.localNotifications = localNotifications;
         this.storage = storage;
+        this.alarms = [];
         this.bg.enable();
         console.log('Hello AlarmProvider Provider');
-        this.timer = 0;
-        __WEBPACK_IMPORTED_MODULE_5_rxjs_Rx__["Observable"].interval(1000 * 60).subscribe(function (x) {
-            _this.doSomething();
-        });
+        /*this.timer = 0;
+        Observable.interval(1000 * 60).subscribe(x => {
+            this.doSomething();
+        });*/
     }
     AlarmProvider.prototype.doSomething = function () {
         if (this.bg.isScreenOff()) {
@@ -148,6 +145,7 @@ var AlarmProvider = (function () {
         this.storage.set('alarms', this.alarms);
         console.log('Alarm created');
         console.log(this.alarms.length + ' alarms now.');
+        this.updateAlarms();
     };
     AlarmProvider.prototype.getAlarms = function () {
         var _this = this;
@@ -158,12 +156,63 @@ var AlarmProvider = (function () {
             return _this.alarms.slice();
         });
     };
+    AlarmProvider.prototype.enableAlarm = function (index) {
+        this.alarms[index].enabled = !this.alarms[index].enabled;
+        this.storage.set('alarms', this.alarms);
+        this.updateAlarms();
+    };
+    AlarmProvider.prototype.removeAlarm = function (index) {
+        this.alarms.splice(-index, 1);
+        this.storage.set('alarms', this.alarms);
+        this.updateAlarms();
+    };
+    AlarmProvider.prototype.getTime = function (alarmTime) {
+        return alarmTime.toLocaleString().split(", ")[1].split(":")[0] + ":" + alarmTime.toLocaleString().split(", ")[1].split(":")[1] + " " + alarmTime.toLocaleString().split(", ")[1].split(" ")[1];
+    };
+    AlarmProvider.prototype.updateAlarms = function () {
+        var temp = Date.now() * Date.now(); //Just a big number
+        var finalIndex = 0;
+        var index = 0;
+        for (var _i = 0, _a = this.alarms; _i < _a.length; _i++) {
+            var alarm = _a[_i];
+            if (alarm.alarmTime.getTime() < temp) {
+                console.log('Heyo');
+            }
+        }
+        this.nextAlarmIndex = finalIndex;
+    };
+    AlarmProvider.prototype.updateAlarmsTemplate = function () {
+        //getLocation
+        //Gets index of most recent alarm
+        var temp = Date.now() * Date.now(); //Just a big number
+        var finalIndex = 0;
+        var index = 0;
+        for (var _i = 0, _a = this.alarms; _i < _a.length; _i++) {
+            var alarm = _a[_i];
+            //Cycling through to find smallest
+            if (alarm.alarmTime.getTime() < temp) {
+                temp = alarm.alarmTime.getTime();
+                finalIndex = index;
+            }
+            index++;
+        }
+        this.nextAlarmIndex = finalIndex;
+        //this.localNotifications.cancelAll();
+        //for (let x = 1; x <= 2; x++)
+        var x = 1;
+        this.localNotifications.schedule({
+            id: x * 1000,
+            title: 'Ring ring!',
+            text: 'Time to wake up!',
+            trigger: { at: new Date(this.alarms[0].alarmTime.getTime() + x * 2000) },
+            data: { mydata: 'My hidden message this is' }
+        });
+    };
     AlarmProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_background_mode__["a" /* BackgroundMode */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_background_mode__["a" /* BackgroundMode */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_audio__["a" /* NativeAudio */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_audio__["a" /* NativeAudio */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_local_notifications__["a" /* LocalNotifications */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_local_notifications__["a" /* LocalNotifications */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["b" /* Storage */]) === "function" && _d || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ionic_native_background_mode__["a" /* BackgroundMode */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_audio__["a" /* NativeAudio */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_local_notifications__["a" /* LocalNotifications */], __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */]])
     ], AlarmProvider);
     return AlarmProvider;
-    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=alarm.js.map
@@ -307,7 +356,7 @@ webpackEmptyAsyncContext.id = 168;
 
 var map = {
 	"../pages/category/category.module": [
-		702,
+		703,
 		0
 	]
 };
@@ -445,14 +494,14 @@ var RssDatabase = (function () {
 
 /***/ }),
 
-/***/ 353:
+/***/ 352:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsControllerPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alarms_alarms__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alarms_alarms__ = __webpack_require__(353);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__schedule_schedule__ = __webpack_require__(358);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tracking_tracking__ = __webpack_require__(359);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__health_advice_health_advice__ = __webpack_require__(360);
@@ -497,14 +546,14 @@ var TabsControllerPage = (function () {
 
 /***/ }),
 
-/***/ 354:
+/***/ 353:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AlarmsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alarm_alarm__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alarm_alarm__ = __webpack_require__(354);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_alarm_alarm__ = __webpack_require__(153);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -521,12 +570,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var AlarmsPage = (function () {
     function AlarmsPage(navCtrl, almProvider) {
-        var _this = this;
         this.navCtrl = navCtrl;
         this.almProvider = almProvider;
-        almProvider.getAlarms().then(function (alarms) { return _this.alarms = alarms; });
     }
     AlarmsPage.prototype.ionViewWillEnter = function () {
+        this.fetchAlarms();
+    };
+    AlarmsPage.prototype.fetchAlarms = function () {
         var _this = this;
         this.almProvider.getAlarms().then(function (alarms) { return _this.alarms = alarms; });
     };
@@ -535,21 +585,32 @@ var AlarmsPage = (function () {
             params = {};
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__alarm_alarm__["a" /* AlarmPage */]);
     };
+    AlarmsPage.prototype.removeAlarm = function (index) {
+        this.almProvider.removeAlarm(index);
+        this.fetchAlarms();
+    };
+    AlarmsPage.prototype.updateAlarms = function () {
+        this.almProvider.updateAlarms();
+        this.fetchAlarms();
+    };
+    AlarmsPage.prototype.changeAlarmStatus = function (index) {
+        this.almProvider.enableAlarm(index);
+        this.fetchAlarms();
+    };
     AlarmsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-alarms',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\alarms\alarms.html"*/`<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Alarms\n\n    </ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button icon-only on-click="goToAlarm()">\n\n        <ion-icon name="add"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding id="page2">\n\n  <div id="alarms-container1" *ngFor = "let alarm of alarms">\n\n    <form id="alarms-form1">\n\n      <ion-item id="alarms-toggle2">\n\n        <ion-label>\n\n          {{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[0]}}:{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[1]}} {{alarm.alarmTime.toLocaleString().split(", ")[1].split(" ")[1]}}\n\n        </ion-label>\n\n        <ion-toggle color="positive" checked="true"></ion-toggle>\n\n      </ion-item>\n\n    </form>\n\n  </div>\n\n</ion-content>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\alarms\alarms.html"*/
+            selector: 'page-alarms',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\alarms\alarms.html"*/`<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Alarms\n\n    </ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button icon-only on-click="goToAlarm()">\n\n        <ion-icon name="add"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding id="page2">\n\n\n\n  <ion-list id="alarms-container1" *ngFor = "let alarm of alarms; let i = index" style ="border-top-width: 1px; border-top-style: solid">\n\n      <ion-item-sliding>\n\n        <ion-item id="alarms-toggle2">\n\n          <ion-label>\n\n            {{alarm.stringTime}}<br/>\n\n            Active: {{alarm.active}}<br/>\n\n            Enabled: {{alarm.enabled}}\n\n            <!--{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[0]}}:{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[1]}} {{alarm.alarmTime.toLocaleString().split(", ")[1].split(" ")[1]}}-->\n\n          </ion-label>\n\n          <ion-toggle color="positive" [checked]="alarm.enabled" (ionChange)="changeAlarmStatus(i)"></ion-toggle>\n\n        </ion-item>\n\n        <ion-item-options side="left">\n\n          <button ion-button color="danger" (click)="removeAlarm(i)">DELETE</button>\n\n        </ion-item-options>\n\n      </ion-item-sliding>\n\n  </ion-list>\n\n</ion-content>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\alarms\alarms.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__providers_alarm_alarm__["a" /* AlarmProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_alarm_alarm__["a" /* AlarmProvider */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__providers_alarm_alarm__["a" /* AlarmProvider */]])
     ], AlarmsPage);
     return AlarmsPage;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=alarms.js.map
 
 /***/ }),
 
-/***/ 355:
+/***/ 354:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -557,6 +618,7 @@ var AlarmsPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_alarm_alarm__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_date_picker__ = __webpack_require__(357);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -569,24 +631,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AlarmPage = (function () {
-    function AlarmPage(navCtrl, almProvider) {
+    function AlarmPage(navCtrl, almProvider, datePicker) {
         this.navCtrl = navCtrl;
         this.almProvider = almProvider;
+        this.datePicker = datePicker;
+        this.display = "unset";
+        this.weekdays = [false, false, false, false, false, false, false];
+        this.weekdayString = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         //allalarms = storage;
     }
     AlarmPage.prototype.createAlarm = function () {
-        this.almProvider.addAlarm(new Date(Date.now()), [false, false, false, false, false, false, false], "hiya", 0, 0, 0);
+        //if required fields filled in
+        if (this.time == null)
+            this.time = new Date(Date.now() + 60 * 2 * 1000);
+        this.almProvider.addAlarm(this.time, this.weekdays, "hiya", 0, 0, 0);
         this.navCtrl.pop();
+    };
+    AlarmPage.prototype.openPicker = function () {
+        var _this = this;
+        this.datePicker.show({
+            date: new Date(),
+            mode: 'time',
+            androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
+        }).then(function (date) {
+            console.log('Got date: ', date);
+            if (date.getTime() < Date.now()) {
+                date = new Date(date.getTime() + 86400000);
+            }
+            _this.time = date;
+            _this.display = _this.almProvider.getTime(date);
+        }, function (err) { return console.log('Error occurred while getting date: ', err); });
+    };
+    AlarmPage.prototype.toggleDay = function (index) {
+        this.weekdays[index] = !this.weekdays[index];
     };
     AlarmPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-alarm',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\alarm\alarm.html"*/`<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Alarm\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding id="page7">\n\n  <form id="alarm-form3">\n\n    <ion-list id="alarm-list2">\n\n      <ion-item color="dark" id="alarm-list-item8">\n\n        Alarm Time\n\n      </ion-item>\n\n      <ion-item id="alarm-input1">\n\n        <ion-label>\n\n          Alarm Type (visual, sound)\n\n        </ion-label>\n\n        <ion-input type="text" placeholder=""></ion-input>\n\n      </ion-item>\n\n      <ion-item id="alarm-input2">\n\n        <ion-label>\n\n          Ringer (different sounds)\n\n        </ion-label>\n\n        <ion-input type="email" placeholder=""></ion-input>\n\n      </ion-item>\n\n      <ion-item id="alarm-input3">\n\n        <ion-label>\n\n          Alarm Repeat (S M T W T F S)\n\n        </ion-label>\n\n        <ion-input type="text" placeholder=""></ion-input>\n\n      </ion-item>\n\n      <ion-item color="none" id="alarm-list-item10">\n\n        Exclude Days (Specific Calendar)\n\n      </ion-item>\n\n    </ion-list>\n\n    <ion-item color="dark" id="alarm-list-item11">\n\n      Geo-sensitive\n\n    </ion-item>\n\n    <ion-item color="none" id="alarm-list-item12">\n\n      Backup Ringer\n\n    </ion-item>\n\n    <ion-item color="none" id="alarm-list-item13">\n\n      Smart Alarm (Wakes in 1.5 hour)\n\n    </ion-item>\n\n    <ion-item color="none" id="alarm-list-item14">\n\n      Grace Period\n\n    </ion-item>\n\n    <button (click) = "createAlarm()" id="alarm-button2" ion-button color="positive" block>\n\n      Set Alarm!\n\n    </button>\n\n  </form>\n\n</ion-content>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\alarm\alarm.html"*/
+            selector: 'page-alarm',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\alarm\alarm.html"*/`<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Alarm\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding id="page7">\n\n  <ion-item (click)="openPicker()" color="dark" id="alarm-list-item8">\n\n    <span>Alarm Time:</span><br/><span style = "text-align: center; font-size: 3em; color: #ff7700">{{display}}</span>\n\n  </ion-item>\n\n  <form id="alarm-form3">\n\n    <ion-list id="alarm-list2">\n\n      <ion-item id="alarm-input1">\n\n        <ion-label>\n\n          Alarm Type (visual, sound)\n\n        </ion-label>\n\n        <ion-input type="text" placeholder=""></ion-input>\n\n      </ion-item>\n\n      <ion-item id="alarm-input2">\n\n        <ion-label>\n\n          Ringer (different sounds)\n\n        </ion-label>\n\n        <ion-input type="email" placeholder=""></ion-input>\n\n      </ion-item>\n\n      <ion-item id="alarm-input3">\n\n        <ion-label>\n\n          Alarm Repeat\n\n          <div class = "row" style ="text-align: center;">\n\n            <div class = "col" style ="text-align: center;">\n\n              <span *ngFor = "let day of weekdayString; let i = index">\n\n                <button ion-button small (click) = "toggleDay(i)" *ngIf="weekdays[i] == false">{{day.charAt(0)}}</button>\n\n                <button ion-button small color = "light" (click) = "toggleDay(i)" *ngIf="weekdays[i] == true">{{day.charAt(0)}}</button>\n\n              </span>\n\n            </div>\n\n          </div>\n\n        </ion-label>\n\n      </ion-item>\n\n    </ion-list>\n\n    <ion-item color="dark" id="alarm-list-item11">\n\n      Geo-sensitive\n\n    </ion-item>\n\n    <button (click) = "createAlarm()" id="alarm-button2" ion-button color="positive" block>\n\n      Set Alarm!\n\n    </button>\n\n  </form>\n\n</ion-content>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\alarm\alarm.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__providers_alarm_alarm__["a" /* AlarmProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_alarm_alarm__["a" /* AlarmProvider */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_alarm_alarm__["a" /* AlarmProvider */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_date_picker__["a" /* DatePicker */]])
     ], AlarmPage);
     return AlarmPage;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=alarm.js.map
@@ -820,38 +907,40 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(409);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_alarms_alarms__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_alarms_alarms__ = __webpack_require__(353);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_schedule_schedule__ = __webpack_require__(358);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tracking_tracking__ = __webpack_require__(359);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_tabs_controller_tabs_controller__ = __webpack_require__(353);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_tabs_controller_tabs_controller__ = __webpack_require__(352);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_health_advice_health_advice__ = __webpack_require__(360);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_category_category__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_settings_settings__ = __webpack_require__(361);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_alarm_alarm__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_alarm_alarm__ = __webpack_require__(354);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_background_mode__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_native_audio__ = __webpack_require__(356);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_bluetooth_serial__ = __webpack_require__(694);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_local_notifications__ = __webpack_require__(357);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_storage__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_feed_adder_modal_feed_adder_modal__ = __webpack_require__(695);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__angular_http__ = __webpack_require__(113);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_forms__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_status_bar__ = __webpack_require__(256);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_splash_screen__ = __webpack_require__(260);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__providers_app_settings_app_settings__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__providers_sleep_tracking_sleep_tracking__ = __webpack_require__(697);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__providers_alarm_alarm__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_light_light__ = __webpack_require__(699);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__providers_sqldatabase_sqldatabase__ = __webpack_require__(700);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_native_audio__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_bluetooth_serial__ = __webpack_require__(695);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_local_notifications__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_date_picker__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_storage__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_feed_adder_modal_feed_adder_modal__ = __webpack_require__(696);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_http__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_forms__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_status_bar__ = __webpack_require__(256);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_splash_screen__ = __webpack_require__(260);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__providers_app_settings_app_settings__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__providers_sleep_tracking_sleep_tracking__ = __webpack_require__(698);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_alarm_alarm__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__providers_light_light__ = __webpack_require__(700);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__providers_sqldatabase_sqldatabase__ = __webpack_require__(701);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -897,18 +986,18 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_10__pages_settings_settings__["a" /* SettingsPage */],
                 __WEBPACK_IMPORTED_MODULE_11__pages_alarm_alarm__["a" /* AlarmPage */],
                 __WEBPACK_IMPORTED_MODULE_9__pages_category_category__["a" /* CategoryPage */],
-                __WEBPACK_IMPORTED_MODULE_17__components_feed_adder_modal_feed_adder_modal__["a" /* FeedAdderModalComponent */]
+                __WEBPACK_IMPORTED_MODULE_18__components_feed_adder_modal_feed_adder_modal__["a" /* FeedAdderModalComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_18__angular_http__["b" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_19__angular_forms__["a" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_19__angular_http__["b" /* HttpModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_forms__["a" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/category/category.module#CategoryPageModule', name: 'CategoryPage', segment: 'category', priority: 'low', defaultHistory: [] }
                     ]
                 }),
-                __WEBPACK_IMPORTED_MODULE_16__ionic_storage__["a" /* IonicStorageModule */].forRoot()
+                __WEBPACK_IMPORTED_MODULE_17__ionic_storage__["a" /* IonicStorageModule */].forRoot()
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* IonicApp */]],
             entryComponents: [
@@ -921,20 +1010,21 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_10__pages_settings_settings__["a" /* SettingsPage */],
                 __WEBPACK_IMPORTED_MODULE_11__pages_alarm_alarm__["a" /* AlarmPage */],
                 __WEBPACK_IMPORTED_MODULE_9__pages_category_category__["a" /* CategoryPage */],
-                __WEBPACK_IMPORTED_MODULE_17__components_feed_adder_modal_feed_adder_modal__["a" /* FeedAdderModalComponent */]
+                __WEBPACK_IMPORTED_MODULE_18__components_feed_adder_modal_feed_adder_modal__["a" /* FeedAdderModalComponent */]
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_20__ionic_native_status_bar__["a" /* StatusBar */],
-                __WEBPACK_IMPORTED_MODULE_21__ionic_native_splash_screen__["a" /* SplashScreen */],
+                __WEBPACK_IMPORTED_MODULE_21__ionic_native_status_bar__["a" /* StatusBar */],
+                __WEBPACK_IMPORTED_MODULE_22__ionic_native_splash_screen__["a" /* SplashScreen */],
                 { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicErrorHandler */] },
-                __WEBPACK_IMPORTED_MODULE_22__providers_app_settings_app_settings__["a" /* AppSettingsProvider */],
+                __WEBPACK_IMPORTED_MODULE_23__providers_app_settings_app_settings__["a" /* AppSettingsProvider */],
                 __WEBPACK_IMPORTED_MODULE_12__ionic_native_background_mode__["a" /* BackgroundMode */],
                 __WEBPACK_IMPORTED_MODULE_13__ionic_native_native_audio__["a" /* NativeAudio */],
                 __WEBPACK_IMPORTED_MODULE_14__ionic_native_bluetooth_serial__["a" /* BluetoothSerial */],
-                __WEBPACK_IMPORTED_MODULE_23__providers_sleep_tracking_sleep_tracking__["a" /* SleepTrackingProvider */],
-                __WEBPACK_IMPORTED_MODULE_24__providers_alarm_alarm__["a" /* AlarmProvider */],
-                __WEBPACK_IMPORTED_MODULE_25__providers_light_light__["a" /* LightProvider */],
-                __WEBPACK_IMPORTED_MODULE_26__providers_sqldatabase_sqldatabase__["a" /* SqldatabaseProvider */],
+                __WEBPACK_IMPORTED_MODULE_24__providers_sleep_tracking_sleep_tracking__["a" /* SleepTrackingProvider */],
+                __WEBPACK_IMPORTED_MODULE_25__providers_alarm_alarm__["a" /* AlarmProvider */],
+                __WEBPACK_IMPORTED_MODULE_26__providers_light_light__["a" /* LightProvider */],
+                __WEBPACK_IMPORTED_MODULE_27__providers_sqldatabase_sqldatabase__["a" /* SqldatabaseProvider */],
+                __WEBPACK_IMPORTED_MODULE_16__ionic_native_date_picker__["a" /* DatePicker */],
                 __WEBPACK_IMPORTED_MODULE_15__ionic_native_local_notifications__["a" /* LocalNotifications */]
             ]
         })
@@ -1016,7 +1106,7 @@ var RssParse = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(256);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(260);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_app_settings_app_settings__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_tabs_controller_tabs_controller__ = __webpack_require__(353);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_tabs_controller_tabs_controller__ = __webpack_require__(352);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1057,7 +1147,7 @@ var MyApp = (function () {
 
 /***/ }),
 
-/***/ 692:
+/***/ 693:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1068,6 +1158,9 @@ var AlarmObject = (function () {
         this.repeatDays = repeatDays;
         this.soundPath = soundPath;
         this.geo = geo;
+        this.stringTime = alarmTime.toLocaleString().split(", ")[1].split(":")[0] + ":" + alarmTime.toLocaleString().split(", ")[1].split(":")[1] + " " + alarmTime.toLocaleString().split(", ")[1].split(" ")[1];
+        this.enabled = true;
+        this.active = false;
     }
     return AlarmObject;
 }());
@@ -1076,7 +1169,7 @@ var AlarmObject = (function () {
 
 /***/ }),
 
-/***/ 693:
+/***/ 694:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1094,14 +1187,14 @@ var Geosensitive = (function () {
 
 /***/ }),
 
-/***/ 695:
+/***/ 696:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FeedAdderModalComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_Link__ = __webpack_require__(696);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_Link__ = __webpack_require__(697);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1145,7 +1238,7 @@ var FeedAdderModalComponent = (function () {
 
 /***/ }),
 
-/***/ 696:
+/***/ 697:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1167,7 +1260,7 @@ var Link = (function () {
 
 /***/ }),
 
-/***/ 697:
+/***/ 698:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1175,7 +1268,7 @@ var Link = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(362);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_background_mode__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_sleepTrack__ = __webpack_require__(698);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_sleepTrack__ = __webpack_require__(699);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1241,7 +1334,7 @@ var SleepTrackingProvider = (function () {
 
 /***/ }),
 
-/***/ 698:
+/***/ 699:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1259,7 +1352,7 @@ var SleepTrack = (function () {
 
 /***/ }),
 
-/***/ 699:
+/***/ 700:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1299,13 +1392,13 @@ var LightProvider = (function () {
 
 /***/ }),
 
-/***/ 700:
+/***/ 701:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SqldatabaseProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_sqlite__ = __webpack_require__(701);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_sqlite__ = __webpack_require__(702);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);

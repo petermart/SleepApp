@@ -324,6 +324,23 @@ module.exports = [
       "cordova.plugins.Keyboard"
     ],
     "runs": true
+  },
+  {
+    "id": "cordova-wheel-selector-plugin.plugin",
+    "file": "plugins/cordova-wheel-selector-plugin/www/selectorplugin.js",
+    "pluginId": "cordova-wheel-selector-plugin",
+    "clobbers": [
+      "SelectorCordovaPlugin"
+    ],
+    "runs": true
+  },
+  {
+    "id": "cordova-plugin-datepicker.DatePicker",
+    "file": "plugins/cordova-plugin-datepicker/www/ios/DatePicker.js",
+    "pluginId": "cordova-plugin-datepicker",
+    "clobbers": [
+      "datePicker"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -342,7 +359,9 @@ module.exports.metadata =
   "cordova-plugin-splashscreen": "4.0.3",
   "cordova-plugin-whitelist": "1.3.1",
   "cordova-sqlite-storage": "2.3.0",
-  "ionic-plugin-keyboard": "2.2.1"
+  "ionic-plugin-keyboard": "2.2.1",
+  "cordova-wheel-selector-plugin": "1.0.0",
+  "cordova-plugin-datepicker": "0.9.3"
 };
 // BOTTOM OF METADATA
 });

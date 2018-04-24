@@ -6,11 +6,11 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page7">
+  <ion-item (click)="openPicker()" color="dark" id="alarm-list-item8">
+    <span>Alarm Time:</span><br/><span style = "text-align: center; font-size: 3em; color: #ff7700">{{display}}</span>
+  </ion-item>
   <form id="alarm-form3">
     <ion-list id="alarm-list2">
-      <ion-item color="dark" id="alarm-list-item8">
-        Alarm Time
-      </ion-item>
       <ion-item id="alarm-input1">
         <ion-label>
           Alarm Type (visual, sound)
@@ -25,25 +25,20 @@
       </ion-item>
       <ion-item id="alarm-input3">
         <ion-label>
-          Alarm Repeat (S M T W T F S)
+          Alarm Repeat
+          <div class = "row" style ="text-align: center;">
+            <div class = "col" style ="text-align: center;">
+              <span *ngFor = "let day of weekdayString; let i = index">
+                <button ion-button small (click) = "toggleDay(i)" *ngIf="weekdays[i] == false">{{day.charAt(0)}}</button>
+                <button ion-button small color = "light" (click) = "toggleDay(i)" *ngIf="weekdays[i] == true">{{day.charAt(0)}}</button>
+              </span>
+            </div>
+          </div>
         </ion-label>
-        <ion-input type="text" placeholder=""></ion-input>
-      </ion-item>
-      <ion-item color="none" id="alarm-list-item10">
-        Exclude Days (Specific Calendar)
       </ion-item>
     </ion-list>
     <ion-item color="dark" id="alarm-list-item11">
       Geo-sensitive
-    </ion-item>
-    <ion-item color="none" id="alarm-list-item12">
-      Backup Ringer
-    </ion-item>
-    <ion-item color="none" id="alarm-list-item13">
-      Smart Alarm (Wakes in 1.5 hour)
-    </ion-item>
-    <ion-item color="none" id="alarm-list-item14">
-      Grace Period
     </ion-item>
     <button (click) = "createAlarm()" id="alarm-button2" ion-button color="positive" block>
       Set Alarm!

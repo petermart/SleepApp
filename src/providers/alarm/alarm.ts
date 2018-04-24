@@ -13,7 +13,8 @@ export class AlarmProvider {
 
     public screenOn:boolean;
     public timer:number;
-    private alarms:AlarmObject[];
+    private alarms:AlarmObject[] = [];
+    public nextAlarmIndex:number;
 
 
     constructor(public bg: BackgroundMode, public nativeAudio: NativeAudio, public localNotifications: LocalNotifications, private storage:Storage) {
@@ -21,10 +22,10 @@ export class AlarmProvider {
  
         this.bg.enable();
         console.log('Hello AlarmProvider Provider');
-        this.timer = 0;
+        /*this.timer = 0;
         Observable.interval(1000 * 60).subscribe(x => {
             this.doSomething();
-        });
+        });*/
     }
 
     doSomething() {
@@ -93,6 +94,7 @@ export class AlarmProvider {
       this.storage.set('alarms', this.alarms);
       console.log('Alarm created');
       console.log(this.alarms.length + ' alarms now.');
+      this.updateAlarms();
   }
 
   getAlarms() {
@@ -105,6 +107,71 @@ export class AlarmProvider {
               }
           );
   }
+  enableAlarm(index:number)
+  {
+      this.alarms[index].enabled = !this.alarms[index].enabled;
+      this.storage.set('alarms', this.alarms);
+      this.updateAlarms();
+  }
+  removeAlarm(index:number)
+  {
+      this.alarms.splice(-index, 1);
+      this.storage.set('alarms', this.alarms);
+      this.updateAlarms();
+  }
+
+  getTime(alarmTime:Date)
+  {
+      return alarmTime.toLocaleString().split(", ")[1].split(":")[0]+":"+alarmTime.toLocaleString().split(", ")[1].split(":")[1]+" "+alarmTime.toLocaleString().split(", ")[1].split(" ")[1];
+  }
+
+  updateAlarms()
+  {
+      let temp = Date.now()*Date.now(); //Just a big number
+      let finalIndex = 0;
+      let index = 0;
+      for (let alarm of this.alarms)
+      {
+          if (alarm.alarmTime.getTime() < temp)
+          {
+              console.log('Heyo')
+          }
+
+      }
+      this.nextAlarmIndex = finalIndex;
+  }
+
+    updateAlarmsTemplate()
+    {
+        //getLocation
+
+        //Gets index of most recent alarm
+        let temp = Date.now()*Date.now(); //Just a big number
+        let finalIndex = 0;
+        let index = 0;
+        for (let alarm of this.alarms)
+        {
+            //Cycling through to find smallest
+            if (alarm.alarmTime.getTime() < temp)
+            {
+                temp = alarm.alarmTime.getTime();
+                finalIndex = index;
+            }
+            index ++;
+        }
+        this.nextAlarmIndex = finalIndex;
+        //this.localNotifications.cancelAll();
+
+        //for (let x = 1; x <= 2; x++)
+        let x = 1;
+        this.localNotifications.schedule({
+            id: x*1000,
+            title: 'Ring ring!',
+            text: 'Time to wake up!',
+            trigger: {at: new Date(this.alarms[0].alarmTime.getTime() + x * 2000)},
+            data: {mydata: 'My hidden message this is'}
+        });
+    }
 
 
 
