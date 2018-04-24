@@ -11,7 +11,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page2">
-
+  <button (click)="stopNot()">{{nextAlarmIndex}}</button>
   <ion-list id="alarms-container1" *ngFor = "let alarm of alarms; let i = index" style ="border-top-width: 1px; border-top-style: solid">
       <ion-item-sliding>
         <ion-item id="alarms-toggle2">

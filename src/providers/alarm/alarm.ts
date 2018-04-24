@@ -4,9 +4,11 @@ import { Geosensitive } from "../../models/geosensitive";
 import { Injectable } from '@angular/core';
 import { BackgroundMode} from "@ionic-native/background-mode";
 import { NativeAudio } from '@ionic-native/native-audio';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 import { LocalNotifications } from "@ionic-native/local-notifications";
 import { Storage } from "@ionic/storage";
+import { Platform } from "ionic-angular";
+import { AlertController } from "ionic-angular";
 
 @Injectable()
 export class AlarmProvider {
@@ -18,14 +20,27 @@ export class AlarmProvider {
     public nextAlarmTime:number;
 
 
-    constructor(public bg: BackgroundMode, public nativeAudio: NativeAudio, public localNotifications: LocalNotifications, private storage:Storage) {
+    constructor(public bg: BackgroundMode, private plt: Platform, public alertCtrl:AlertController, public nativeAudio: NativeAudio, public localNotifications: LocalNotifications, private storage:Storage) {
+
+
         //alarms = storage alarms;
  
-        this.bg.enable();
+        //this.bg.enable();
         console.log('Hello AlarmProvider Provider');
         /*this.timer = 0;
         Observable.interval(1000 * 60).subscribe(x => {
             this.doSomething();
+        });*/
+    }
+
+    disableAllNotifications()
+    {
+        /*this.localNotifications.getAllTriggered().then((array)=>{
+            if (array.length > 2)
+            {
+                this.localNotifications.clearAll();
+                this.localNotifications.cancelAll();
+            }
         });*/
     }
 
@@ -131,7 +146,7 @@ export class AlarmProvider {
       let index = 0;
       let shortTermMin = Date.now()*Date.now();
       let prevMin = shortTermMin;
-      let maxIndex = 0;
+      let maxIndex = -1;
       let temp;
       for (let alarm of this.alarms)
       {
@@ -150,17 +165,20 @@ export class AlarmProvider {
           index ++;
       }
       this.nextAlarmIndex = maxIndex;
-      let g = new Date(this.alarms[maxIndex].alarmTime);
-      this.nextAlarmTime = g.getTime();
-      console.log('Max index: '+maxIndex);
-      for (let x = 1; x <= 2; x++) {
-          this.localNotifications.schedule({
-              id: x * 1000,
-              title: 'Ring ring!',
-              text: 'Time to wake up!',
-              trigger: {at: new Date(this.nextAlarmTime + x * 2000)},
-              data: {mydata: 'My hidden message this is'}
-          });
+      if (maxIndex!= -1)
+      {
+        let g = new Date(this.alarms[maxIndex].alarmTime);
+        this.nextAlarmTime = g.getTime();
+        console.log('Max index: '+maxIndex);
+        for (let x = 1; x <= 2; x++) {
+            this.localNotifications.schedule({
+                id: x * 1000,
+                title: 'Ring ring!',
+                text: 'Time to wake up!',
+                trigger: {at: new Date(this.nextAlarmTime + x * 500)},
+                data: {mydata: 'My hidden message this is'}
+            });
+        }
       }
   }
 
@@ -185,12 +203,12 @@ export class AlarmProvider {
         this.nextAlarmIndex = finalIndex;
         //this.localNotifications.cancelAll();
 
-        for (let x = 1; x <= 2; x++)
+        for (let x = 1; x <= 20; x++)
         this.localNotifications.schedule({
             id: x*1000,
             title: 'Ring ring!',
             text: 'Time to wake up!',
-            trigger: {at: new Date(this.alarms[this.nextAlarmIndex].alarmTime.getTime() + x * 2000)},
+            trigger: {at: new Date(this.nextAlarmTime + x * 2000)},
             data: {mydata: 'My hidden message this is'}
         });
     }

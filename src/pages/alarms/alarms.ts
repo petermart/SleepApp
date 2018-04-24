@@ -11,9 +11,14 @@ import { AlarmObject } from "../../models/alarmObject";
 export class AlarmsPage {
 
   alarms:AlarmObject[];
+  nextAlarmIndex:number;
 
   constructor(public navCtrl: NavController, public almProvider: AlarmProvider) {
 
+  }
+  stopNot()
+  {
+    this.almProvider.disableAllNotifications();
   }
 
   ionViewWillEnter()
@@ -25,6 +30,8 @@ export class AlarmsPage {
       this.almProvider.getAlarms().then(
           (alarms) => this.alarms = alarms
       );
+      this.nextAlarmIndex = this.almProvider.nextAlarmIndex;
+
   }
   goToAlarm(params){
     if (!params) params = {};

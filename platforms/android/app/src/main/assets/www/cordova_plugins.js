@@ -347,13 +347,13 @@ module.exports.metadata =
   "cordova-plugin-nativeaudio": "3.0.9",
   "cordova-sqlite-storage": "2.3.0",
   "ionic-plugin-keyboard": "2.2.1",
-  "cordova-plugin-whitelist": "1.3.1",
   "cordova-plugin-splashscreen": "4.0.3",
   "cordova-plugin-ionic-webview": "1.2.0",
   "cordova-plugin-badge": "0.8.7",
   "cordova-plugin-local-notification": "0.9.0-beta.2",
   "cordova-wheel-selector-plugin": "1.0.0",
-  "cordova-plugin-datepicker": "0.9.3"
+  "cordova-plugin-datepicker": "0.9.3",
+  "cordova-plugin-whitelist": "1.3.3"
 };
 // BOTTOM OF METADATA
 });

@@ -13,7 +13,7 @@
     <ion-label>
       REM Awake
     </ion-label>
-    <ion-toggle color="positive" checked="true"></ion-toggle>
+    <ion-toggle color="positive" [checked]="sleepTracking" (ionChange)="updateSleepTracking()"></ion-toggle>
   </ion-item>
   <br/><br/><br/><br/><br/><br/><br/><br/>
   <h2 style = "text-align: center;">Start Sleeping!</h2>
