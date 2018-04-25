@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/PeterMartin/Documents/GitHub/SleepApp/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sk/values-sk.xml",
+            "outputFile": "C:\\Users\\Peter\\Documents\\GitHub\\SleepApp\\platforms\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sk\\values-sk.xml",
             "map": [
                 {
-                    "source": "/Users/PeterMartin/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/73137b2a9daef1bb3d37a2c52d6efb3c/res/values-sk/values-sk.xml",
+                    "source": "C:\\Users\\Peter\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\817591bde8c77062006d5d5c0ce16c0a\\res\\values-sk\\values-sk.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

@@ -17,8 +17,8 @@
         <ion-item id="alarms-toggle2">
           <ion-label>
             {{alarm.stringTime}}<br/>
-            Active: {{alarm.active}}<br/>
-            Enabled: {{alarm.enabled}}
+            <span style = "font-size: 0.5em;">Active: {{alarm.active}}<br/>
+              Enabled: {{alarm.enabled}}</span>
             <!--{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[0]}}:{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[1]}} {{alarm.alarmTime.toLocaleString().split(", ")[1].split(" ")[1]}}-->
           </ion-label>
           <ion-toggle color="positive" [checked]="alarm.enabled" (ionChange)="changeAlarmStatus(i)"></ion-toggle>

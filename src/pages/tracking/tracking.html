@@ -7,7 +7,7 @@
 </ion-header>
 <ion-content padding id="page4">
  <h1 style ="text-align: center;">Welcome to the Sleep Tracker!</h1>
-  <br/><br/>
+    <h2>Tracking will be recorded to your sleep schedule!</h2>
   <h3>Enable REM Awake to wake you up at the end of your REM cycle, so you feel rejuvenated and energetic all day long.</h3>
   <ion-item id="alarms-toggle2">
     <ion-label>
@@ -15,7 +15,6 @@
     </ion-label>
     <ion-toggle color="positive" [checked]="sleepTracking" (ionChange)="updateSleepTracking()"></ion-toggle>
   </ion-item>
-  <br/><br/><br/><br/><br/><br/><br/><br/>
   <h2 style = "text-align: center;">Start Sleeping!</h2>
   <h1 style = "text-align: center;"><button class="circlebutton" icon-only on-click="goToAlarm()">
     <ion-icon name="disk" large></ion-icon>

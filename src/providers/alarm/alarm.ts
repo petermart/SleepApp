@@ -37,75 +37,8 @@ export class AlarmProvider {
     {
         this.localNotifications.clearAll();
         this.localNotifications.cancelAll();
-        this.localNotifications.getAllTriggered().then((array)=>{
-            if (array.length > 2)
-            {
-                this.localNotifications.clearAll();
-                this.localNotifications.cancelAll();
-            }
-        });
     }
 
-    doSomething() {
-        if (this.bg.isScreenOff()) {
-            if (this.timer < -1) {
-                this.timer *= -1;
-            }
-            this.timer += 1;
-            this.screenOn = false;
-            this.localNotifications.schedule({
-                id: 1,
-                title: 'Attention',
-                text: 'Your screen has been off for roughly ' + this.timer + ' minutes',
-                trigger: {at: new Date(new Date().getTime() + 1 * 1000)},
-                data: {mydata: 'My hidden message this is'}
-            });
-            this.bg.unlock();
-        }
-        else {
-            if (this.timer > -1) {
-                this.timer *= -1;
-            }
-            else {
-                this.localNotifications.schedule({
-                    id: 1,
-                    title: 'Attention',
-                    text: 'Evaluating after off: screen was off for roughly ' + this.timer + ' minutes',
-                    trigger: {at: new Date(new Date().getTime() + 5 * 1000)},
-                    data: {mydata: 'My hidden message this is'}
-                });
-                this.timer = 0;
-            }
-            this.screenOn = true;
-        }
-    }
-
-    /*if ( /*this.alarmType == smart && (this.timer - 7)%90 < 4 && (this.timer - 7) > 0 ) /* && ROUGHLY TIME TO WAKE UP{
-      //localNotifications.set;
-        // bg.playsound;
-    }
-    else if (Date.now() > Date.parse(al.alarmTime.toDateString())) {
-      //localNotifcations.set;
-        // bg.playsound;
-    }*/
-
-
-
-
-  enable(al:AlarmObject)
-  {
-    this.bg.enable();
-    this.nativeAudio.preloadComplex('alarmSound',al.soundPath, 1, 1, 1);
-    while(Date.now() < Date.parse(al.alarmTime.toDateString()))
-    {
-
-    }
-    if (Date.now() > Date.parse(al.alarmTime.toDateString()))
-    {
-      this.nativeAudio.loop('alarmSound');
-      this.nativeAudio.stop('alarmSound');
-    }
-  }
 
   addAlarm(alarmTime:Date, repeatDays:boolean[], soundPath:string, lat:number, long:number, rad:number) {
       this.alarms.push(new AlarmObject(alarmTime, repeatDays, soundPath, new Geosensitive(lat, long, rad)));
@@ -128,6 +61,10 @@ export class AlarmProvider {
   enableAlarm(index:number)
   {
       this.alarms[index].enabled = !this.alarms[index].enabled;
+      /*while (this.alarms[index].enabled && Date.now() > this.alarms[index].alarmTime.getTime())
+      {
+          this.alarms[index].alarmTime = new Date(this.alarms[index].alarmTime.getTime()+86400000);
+      }*/
       this.storage.set('alarms', this.alarms);
       this.updateAlarms();
   }
@@ -145,25 +82,29 @@ export class AlarmProvider {
 
   updateAlarms()
   {
+
       let index = 0;
       let shortTermMin = Date.now()*Date.now();
       let prevMin = shortTermMin;
       let maxIndex = -1;
       let temp;
+      this.disableAllNotifications();
       for (let alarm of this.alarms)
       {
-          console.log("Current idnex: "+index);
-          console.log("Alarm date: "+this.alarms[index].alarmTime)
-          let g = new Date(alarm.alarmTime);
-          console.log("G time "+g.getTime());
-          prevMin = shortTermMin;
-          shortTermMin = Math.min(shortTermMin, g.getTime() );
-          temp = Math.abs(prevMin - shortTermMin);
-          console.log("Change = "+temp);
-          temp = temp/(Math.max(1,temp));
-          console.log("Mathematics: " + temp);
-          maxIndex = Math.max(temp*index, maxIndex);
-          console.log(maxIndex);
+          if (alarm.enabled) {
+              console.log("Current idnex: " + index);
+              console.log("Alarm date: " + this.alarms[index].alarmTime)
+              let g = new Date(alarm.alarmTime);
+              console.log("G time " + g.getTime());
+              prevMin = shortTermMin;
+              shortTermMin = Math.min(shortTermMin, g.getTime());
+              temp = Math.abs(prevMin - shortTermMin);
+              console.log("Change = " + temp);
+              temp = temp / (Math.max(1, temp));
+              console.log("Mathematics: " + temp);
+              maxIndex = Math.max(temp * index, maxIndex);
+              console.log(maxIndex);
+          }
           index ++;
       }
       this.nextAlarmIndex = maxIndex;
@@ -172,47 +113,72 @@ export class AlarmProvider {
         let g = new Date(this.alarms[maxIndex].alarmTime);
         this.nextAlarmTime = g.getTime();
         console.log('Max index: '+maxIndex);
+        //SET TIME FOR LIGHT
         for (let x = 1; x <= 60; x++) {
             this.localNotifications.schedule({
                 id: x * 1000,
                 title: 'Ring ring!',
                 text: 'Time to wake up!',
-                trigger: {at: new Date(this.nextAlarmTime + x * 500)},
+                trigger: {at: new Date(this.nextAlarmTime + x * 1000)},
                 data: {mydata: 'My hidden message this is'}
             });
         }
       }
+      else {}
+      this.storage.set('nextAlarmTime', this.nextAlarmTime);
+      this.storage.set('nextAlarmIndex', this.nextAlarmIndex);
   }
 
-    updateAlarmsTemplate()
+
+    //ORIGINALLY IN TABS CONTROLLER
+    cancelAlarmNotifications()
     {
-        //getLocation
-
-        //Gets index of most recent alarm
-        let temp = Date.now()*Date.now(); //Just a big number
-        let finalIndex = 0;
-        let index = 0;
-        for (let alarm of this.alarms)
-        {
-            //Cycling through to find smallest
-            if (alarm.alarmTime.getTime() < temp)
+        this.getIndex().then( (index) =>
             {
-                temp = alarm.alarmTime.getTime();
-                finalIndex = index;
+                if (index!=-1)
+                {
+                    this.getAlarmTime().then((time) =>
+                    {
+                        if (Date.now() > time)
+                        {
+                            //TURN OFF LIGHT
+                            this.disableAllNotifications();
+                            let i = 0;
+                            for (let alarm of this.alarms)
+                            {
+                                if (alarm.alarmTime.getTime() <= time)
+                                {
+                                    this.removeAlarm(i);
+                                }
+                                i ++;
+                            }
+                            //this.alarms[index].alarmTime = new Date(this.alarms[index].alarmTime.getTime()+86400000);
+                            //this.updateAlarms()
+                        }
+                    });
+                }
             }
-            index ++;
-        }
-        this.nextAlarmIndex = finalIndex;
-        //this.localNotifications.cancelAll();
-
-        for (let x = 1; x <= 20; x++)
-        this.localNotifications.schedule({
-            id: x*1000,
-            title: 'Ring ring!',
-            text: 'Time to wake up!',
-            trigger: {at: new Date(this.nextAlarmTime + x * 2000)},
-            data: {mydata: 'My hidden message this is'}
-        });
+        );
+    }
+    getAlarmTime()
+    {
+        return this.storage.get('nextAlarmTime')
+            .then(
+                (nextAlarmTime) => {
+                    this.nextAlarmTime = nextAlarmTime == null ? 0: nextAlarmTime;
+                    return this.nextAlarmTime;
+                }
+            );
+    }
+    getIndex()
+    {
+        return this.storage.get('nextAlarmIndex')
+            .then(
+                (nextAlarmIndex) => {
+                    this.nextAlarmIndex = nextAlarmIndex == null ? -1: nextAlarmIndex;
+                    return this.nextAlarmIndex;
+                }
+            );
     }
 
 

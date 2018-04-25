@@ -5,6 +5,9 @@ import { SchedulePage } from '../schedule/schedule';
 import { TrackingPage } from '../tracking/tracking';
 import { HealthAdvicePage } from '../health-advice/health-advice';
 import { SettingsPage } from '../settings/settings';
+import { AlarmProvider } from "../../providers/alarm/alarm";
+import { LocalNotifications } from "@ionic-native/local-notifications";
+import { Storage } from "@ionic/storage";
 
 @Component({
   selector: 'page-tabs-controller',
@@ -18,7 +21,16 @@ export class TabsControllerPage {
   tab3Root: any = TrackingPage;
   tab4Root: any = HealthAdvicePage;
   tab5Root: any = SettingsPage;
-  constructor(public navCtrl: NavController) {
+
+  nextAlarmTime;
+  nextAlarmIndex;
+  constructor(public navCtrl: NavController, public localNotifications: LocalNotifications, private almProv:AlarmProvider, private storage:Storage) {
+
   }
-  
+
+  ionViewWillEnter()
+  {
+     this.almProv.cancelAlarmNotifications();
+  }
+
 }
