@@ -6,17 +6,20 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page3">
-  <h3 id="schedule-heading4" style="color:#000000;text-align:center;">
+  <h3 style="text-align:center;">
+    Sleeping Tracker Data:
+  </h3>
+  <h1>{{viewTitle}}</h1>
+  <calendar [eventSource]="eventSource"
+            [calendarMode] = "calendar.mode" [currentDate] = "calendar.currentDate"
+            (onEventSelected)="onEventSelected($event)"
+            (onTitleChanged)="onViewTitleChanged($event)"
+            (onTimeSelected)="onTimeSelected($event)"
+            step = "30"
+            class = "calendar">
+  </calendar>
+  <h3  style="text-align:center;">
     Average Sleeping Hours
   </h3>
-  <img src="assets/img/uQBXLVrWRXKnhym9digZ_graphayyoa.png" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
-  <div id="schedule-markdown2" class="show-list-numbers-and-dots">
-    <p style="color:#000000;">
-      Your sleep schedule is fairly
-      <strong>
-        inconsistent
-      </strong>
-      . For greater energy throughout the day, try to have a consistent sleeping pattern.
-    </p>
-  </div>
+
 </ion-content>

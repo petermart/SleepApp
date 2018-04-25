@@ -36,6 +36,7 @@ import { AlarmProvider } from '../providers/alarm/alarm';
 import { LightProvider } from '../providers/light/light';
 import { SqldatabaseProvider } from '../providers/sqldatabase/sqldatabase';
 import { Http, Request, RequestMethod } from "@angular/http";
+import { NgCalendarModule } from "ionic2-calendar";
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { Http, Request, RequestMethod } from "@angular/http";
     BrowserModule,
       HttpModule,
       FormsModule,
+      NgCalendarModule,
 
     IonicModule.forRoot(MyApp),
       IonicStorageModule.forRoot()

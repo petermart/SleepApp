@@ -24,7 +24,7 @@ export class AlarmProvider {
 
 
         //alarms = storage alarms;
- 
+
         //this.bg.enable();
         console.log('Hello AlarmProvider Provider');
         /*this.timer = 0;
@@ -80,54 +80,52 @@ export class AlarmProvider {
       return alarmTime.toLocaleString().split(", ")[1].split(":")[0]+":"+alarmTime.toLocaleString().split(", ")[1].split(":")[1]+" "+alarmTime.toLocaleString().split(", ")[1].split(" ")[1];
   }
 
-  updateAlarms()
-  {
+    updateAlarms()
+    {
 
-      let index = 0;
-      let shortTermMin = Date.now()*Date.now();
-      let prevMin = shortTermMin;
-      let maxIndex = -1;
-      let temp;
-      this.disableAllNotifications();
-      for (let alarm of this.alarms)
-      {
-          if (alarm.enabled) {
-              console.log("Current idnex: " + index);
-              console.log("Alarm date: " + this.alarms[index].alarmTime)
-              let g = new Date(alarm.alarmTime);
-              console.log("G time " + g.getTime());
-              prevMin = shortTermMin;
-              shortTermMin = Math.min(shortTermMin, g.getTime());
-              temp = Math.abs(prevMin - shortTermMin);
-              console.log("Change = " + temp);
-              temp = temp / (Math.max(1, temp));
-              console.log("Mathematics: " + temp);
-              maxIndex = Math.max(temp * index, maxIndex);
-              console.log(maxIndex);
-          }
-          index ++;
-      }
-      this.nextAlarmIndex = maxIndex;
-      if (maxIndex!= -1)
-      {
-        let g = new Date(this.alarms[maxIndex].alarmTime);
-        this.nextAlarmTime = g.getTime();
-        console.log('Max index: '+maxIndex);
-        //SET TIME FOR LIGHT
-        for (let x = 1; x <= 60; x++) {
-            this.localNotifications.schedule({
-                id: x * 1000,
-                title: 'Ring ring!',
-                text: 'Time to wake up!',
-                trigger: {at: new Date(this.nextAlarmTime + x * 1000)},
-                data: {mydata: 'My hidden message this is'}
-            });
+        let index = 0;
+        let shortTermMin = Date.now()*Date.now();
+        let prevMin = shortTermMin;
+        let maxIndex = -1;
+        let temp;
+        this.disableAllNotifications();
+        for (let alarm of this.alarms)
+        {
+            if (alarm.enabled) {
+                console.log("Current idnex: " + index);
+                console.log("Alarm date: " + this.alarms[index].alarmTime)
+                let g = new Date(alarm.alarmTime);
+                console.log("G time " + g.getTime());
+                prevMin = shortTermMin;
+                shortTermMin = Math.min(shortTermMin, g.getTime());
+                temp = Math.abs(prevMin - shortTermMin);
+                console.log("Change = " + temp);
+                temp = temp / (Math.max(1, temp));
+                console.log("Mathematics: " + temp);
+                maxIndex = Math.max(temp * index, maxIndex);
+                console.log(maxIndex);
+            }
+            index ++;
         }
-      }
-      else {}
-      this.storage.set('nextAlarmTime', this.nextAlarmTime);
-      this.storage.set('nextAlarmIndex', this.nextAlarmIndex);
-  }
+        this.nextAlarmIndex = maxIndex;
+        if (maxIndex!= -1)
+        {
+            let g = new Date(this.alarms[maxIndex].alarmTime);
+            this.nextAlarmTime = g.getTime();
+            console.log('Max index: '+maxIndex);
+            for (let x = 1; x <= 60; x++) {
+                this.localNotifications.schedule({
+                    id: x * 1000,
+                    title: 'Ring ring!',
+                    text: 'Time to wake up!',
+                    trigger: {at: new Date(this.nextAlarmTime + x * 500)},
+                    data: {mydata: 'My hidden message this is'}
+                });
+            }
+        }
+        this.storage.set('nextAlarmTime', this.nextAlarmTime);
+        this.storage.set('nextAlarmIndex', this.nextAlarmIndex);
+    }
 
 
     //ORIGINALLY IN TABS CONTROLLER

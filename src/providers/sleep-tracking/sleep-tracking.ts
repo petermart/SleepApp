@@ -11,45 +11,20 @@ import { SleepTrack } from "../../models/sleepTrack";
 */
 @Injectable()
 export class SleepTrackingProvider {
-  public screenOff:boolean = false;
-  public temp:number;
 
-  constructor(public http: HttpClient, public back: BackgroundMode, public dataHolder:SleepTrack[]) {
-    console.log('Hello SleepTrackingProvider Provider');
-  }
-
-  //Do this for 24 hours.  Do this from three pm till three pm.  Find the max, and return the hours asleep for.
-  test()
-  {
-    this.back.enable();
-    this.screenOff = false;
-    while(true) //MUST CHANGE PARAMTER TO BE FROM NOON UNTIL NOON
-    {
-      if (this.screenOff === true) //SCREEN IS CURRENTLY OFF
-      {
-        if (!this.back.isScreenOff()) //CHECKING IF SCREEN IS ON
-        {
-          this.screenOff = false;
-          //SAVE THIS AS THE INITIAL TIME.
-          this.dataHolder.push(new SleepTrack(this.temp, Date.now(), Date.now()-this.temp));
-          //OUTPUT (Date.now()-this.temp)/1000; (TIME IN SECONDS THAT SCREEN WAS OFF FOR)
-        }
-      }
-      if (this.screenOff === false) //SCREEN IS CURRENTLY ON
-      {
-        if (this.back.isScreenOff) //CHECKING IF SCREEN IS OFF
-        {
-          this.screenOff = true; //SETTING SCREEN OFF TO TRUE
-          this.temp = Date.now();
-        }
-      }
+    eventSource = [];
+    constructor(public http: HttpClient, public back: BackgroundMode, public dataHolder: SleepTrack[], private storage: Storage) {
+        console.log('Hello SleepTrackingProvider Provider');
     }
-    /*var max = new SleepTrack(0, 0, 0);
-    for (let x = 0; x < this.dataHolder.length; x+=1)
+    fetcheEvents()
     {
-      if (this.dataHolder[x].duration > max.duration)
-        max = new SleepTrack(this.dataHolder[x].initialTime, this.dataHolder[x].endTime, this.dataHolder[x].duration);
-    }*/
-  }
 
+    }
+
+    addEvent(title: string, start: Date, end: Date) {
+        let allday: boolean = false;
+        let startTime = start.toISOString();
+        let endTime = end.toISOString();
+        this.eventSource.push({title: title, startTime: start, endTime: end, allDay: allday});
+    }
 }

@@ -16,7 +16,7 @@
     <ion-toggle color="positive" [checked]="sleepTracking" (ionChange)="updateSleepTracking()"></ion-toggle>
   </ion-item>
   <h2 style = "text-align: center;">Start Sleeping!</h2>
-  <h1 style = "text-align: center;"><button class="circlebutton" icon-only on-click="goToAlarm()">
+  <h1 style = "text-align: center;"><button class="circlebutton" icon-only (click)="startTracking()">
     <ion-icon name="disk" large></ion-icon>
   </button></h1>
 </ion-content>
