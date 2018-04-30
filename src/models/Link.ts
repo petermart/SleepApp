@@ -1,3 +1,5 @@
+//Michael's code.
+
 export class Link {
 
   public link:string;

@@ -13,9 +13,11 @@
     <ion-label>
       REM Awake
     </ion-label>
-    <ion-toggle color="positive" [checked]="sleepTracking" (ionChange)="updateSleepTracking()"></ion-toggle>
+    <ion-toggle *ngIf="remAwake" color="positive" checked="true" (ionChange)="updateSleepTracking()"></ion-toggle>
+      <ion-toggle *ngIf="!remAwake" color="positive" checked="false" (ionChange)="updateSleepTracking()"></ion-toggle>
   </ion-item>
   <h2 style = "text-align: center;">Start Sleeping!</h2>
+    <p>{{message}}</p>
   <h1 style = "text-align: center;"><button class="circlebutton" icon-only (click)="startTracking()">
     <ion-icon name="disk" large></ion-icon>
   </button></h1>

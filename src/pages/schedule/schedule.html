@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page3">
-  <h3 style="text-align:center;">
+  <h3 (click) = "ionViewDidLoad()" style="text-align:center;">
     Sleeping Tracker Data:
   </h3>
   <h1>{{viewTitle}}</h1>
@@ -18,8 +18,10 @@
             step = "30"
             class = "calendar">
   </calendar>
-  <h3  style="text-align:center;">
+  <!--<h3  style="text-align:center;">
     Average Sleeping Hours
-  </h3>
+  </h3>-->
+  <br/>
+  <button ion-button (click) = "clear()"></button>
 
 </ion-content>

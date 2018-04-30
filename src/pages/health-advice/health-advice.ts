@@ -45,10 +45,12 @@ export class HealthAdvicePage {
         }).catch(function (error) {
             console.log(error);
         });
+        //Get all 'categories' for news feeds
 
         this.rss_db.getLinks().then (function (rss_links) {
             that.custom_links = <Link[]>rss_links;
         })
+        //If custom ones, import those to (there is not.  This is part of Michael's setup)
 
     }
 

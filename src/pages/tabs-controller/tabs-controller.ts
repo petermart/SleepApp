@@ -31,6 +31,7 @@ export class TabsControllerPage {
   ionViewWillEnter()
   {
      this.almProv.cancelAlarmNotifications();
+     //When the alarm provider is opened (so visible), it will cancel Alarm notifications.
   }
 
 }

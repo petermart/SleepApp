@@ -20,13 +20,12 @@ export class SettingsPage {
       {
           this.darktheme = true;
       }
+      //On instance created, get theme. Then, set darktheme to false if lighttheme, darktheme true if darktheme.
   }
 
   updateTheme()
   {
     this.darktheme = !this.darktheme;
-    console.log(this.darktheme);
-    console.log('updating theme');
       if (this.darktheme == true)
       {
         this.settings.setActiveTheme('dark-theme');
@@ -35,15 +34,7 @@ export class SettingsPage {
       {
           this.settings.setActiveTheme('light-theme');
       }
-
-   /*if (this.selectedTheme === "light-theme")
-    {
-        this.settings.setActiveTheme('dark-theme');
-    }
-    else
-    {
-      this.settings.setActiveTheme('light-theme');
-    }*/
+      //If darktheme, then set theme to dark, if lighttheme, set theme to light
   }
 
 }

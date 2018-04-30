@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
-
+//Michael's code
 @Injectable()
 export class SqldatabaseProvider {
 

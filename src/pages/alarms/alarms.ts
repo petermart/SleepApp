@@ -31,7 +31,6 @@ export class AlarmsPage {
           (alarms) => this.alarms = alarms
       );
       this.nextAlarmIndex = this.almProvider.nextAlarmIndex;
-
   }
   goToAlarm(params){
     if (!params) params = {};

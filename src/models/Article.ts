@@ -1,3 +1,4 @@
+//Michael's code
 export class Article {
 
   public author:string;

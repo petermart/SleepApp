@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { AlarmProvider } from "../../providers/alarm/alarm";
 import { Storage } from "@ionic/storage";
 import {LocalNotifications} from "@ionic-native/local-notifications";
+import { SleepTrackingProvider } from "../../providers/sleep-tracking/sleep-tracking";
 
 @Component({
   selector: 'page-tracking',
@@ -11,12 +12,13 @@ import {LocalNotifications} from "@ionic-native/local-notifications";
 export class TrackingPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
-  remAwake:boolean = true;
+  remAwake:boolean = false;
   message:string = "";
 
-  constructor(public navCtrl: NavController, private alarmProvider: AlarmProvider, private storage: Storage, private localNotifications: LocalNotifications) {
-    this.fetchRem()
+  constructor(public navCtrl: NavController, private alarmProvider: AlarmProvider, private storage: Storage, private localNotifications: LocalNotifications, private track:SleepTrackingProvider) {
+
   }
+
 
     ionViewWillEnter()
     {
@@ -32,7 +34,7 @@ export class TrackingPage {
         return this.storage.get('remAwake')
             .then(
                 (remAwake) => {
-                    this.remAwake = remAwake == null ? []: remAwake;
+                    this.remAwake = remAwake == null ? true: remAwake;
                     return this.remAwake;
                 }
             );
@@ -40,7 +42,8 @@ export class TrackingPage {
 
     updateSleepTracking()
     {
-      this.storage.set('remAwake', this.remAwake);
+        this.remAwake = !this.remAwake;
+        this.storage.set('remAwake', this.remAwake);
     }
 
     startTracking()
@@ -48,14 +51,18 @@ export class TrackingPage {
         let time = 0;
         this.alarmProvider.getAlarmTime().then((result)=>{
            time = result;
-        });
-        if (time == 0)
+           console.log(time);
+        //Get time from alarm provider from storage
+           if (time == 0)
         {
             this.message = "Oops!  You haven't set an alarm yet.  I can't track your sleep."
         }
+        //If time = 0 (not fetched or no next alarm time)
         else {
+            this.message = "Tracking Sleep";
             let now = Date.now();
-            let distance = time+600000-now;  //Time to sleep at plus 10 minute grace period minus now: target milliseconds to sleep.
+            //Set now to current time in milliseconds and set the message to display to tracking sleep.
+            let distance = time-now;  //Time to sleep
             if (this.remAwake)
             {
                 //this.alarmProvider.disableAllNotifications();
@@ -67,6 +74,7 @@ export class TrackingPage {
                 }
                 for (let x = 1; x <= 60; x++) {
                     this.localNotifications.schedule({
+                        //Span notifications to wake up
                         id: x * 1000,
                         title: 'Ring ring!',
                         text: 'Time to wake up!',
@@ -74,14 +82,21 @@ export class TrackingPage {
                         data: {mydata: 'My hidden message this is'}
                     });
                 }
+                distance = targetTime-600000;
+                //Set distance to time - 10 minutes in milliseconds
 
             }
             let hoursSlept = (distance*1.0)/(3600*1000);
+            console.log("hours slept: "+hoursSlept);
+            //this.message = this.message + "REM AWAKE: "+ this.remAwake+" Now "+now+" alarmtime "+time+" milliseconds slept: "+distance+" hours slept: "+hoursSlept;
+            this.track.addEvent("Slept for "+Math.round(hoursSlept * 100) / 100+" hours.", new Date(now), new Date(now+distance));
+            //Add time slept to the sleep tracker schedule.  The this.message is for debugging
 
-        }
+
+        }});
     }
 
 
 
-  
+
 }

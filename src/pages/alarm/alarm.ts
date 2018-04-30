@@ -27,7 +27,7 @@ export class AlarmPage {
     createAlarm(){
         //if required fields filled in
         if (this.time == null)
-            this.time = new Date (Date.now()+60*2*1000);
+            this.time = new Date (Date.now()+60*1000*60*8);
       this.almProvider.addAlarm(this.time, this.weekdays, "hiya", 0,0,0);
       this.navCtrl.pop();
     }
@@ -41,12 +41,15 @@ export class AlarmPage {
         }).then(
             date => {
                 console.log('Got date: ', date);
+                //Show date picker, then get date set.
                 if (date.getTime()<Date.now())
                 {
-                    date = new Date(date.getTime()+86400000)
+                    date = new Date(date.getTime()+86400000);
+                    //If the picked date time is less than now, then add 24 hours to it (in milliseconds)
                 }
                 this.time = date;
                 this.display = this.almProvider.getTime(date);
+                //Set this time to the date and the display to the date time in format H:MM AM/PM
 
             },
             err => console.log('Error occurred while getting date: ', err)

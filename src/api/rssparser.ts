@@ -7,6 +7,8 @@ import * as cheerio from 'cheerio';
 import * as truncate from 'truncate';
 
 
+//THIS IS MICHAELS CODE
+
 export class RssParse {
 
   static getFeed(source:string) {

@@ -50,13 +50,72 @@ var AppSettingsProvider = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SleepTrackingProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_background_mode__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(48);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+/*
+  Generated class for the SleepTrackingProvider provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+var SleepTrackingProvider = (function () {
+    function SleepTrackingProvider(back, storage) {
+        this.back = back;
+        this.storage = storage;
+        this.eventSource = [];
+        console.log('Hello SleepTrackingProvider Provider');
+    }
+    SleepTrackingProvider.prototype.fetchEvents = function () {
+        var _this = this;
+        return this.storage.get('eventSource')
+            .then(function (eventSource) {
+            _this.eventSource = eventSource == null ? [] : eventSource;
+            return _this.eventSource;
+        });
+    };
+    SleepTrackingProvider.prototype.addEvent = function (title, start, end) {
+        var allday = false;
+        var startTime = start.toISOString();
+        var endTime = end.toISOString();
+        this.eventSource.push({ title: title, startTime: start, endTime: end, allDay: allday });
+        this.storage.set('eventSource', this.eventSource);
+    };
+    SleepTrackingProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_background_mode__["a" /* BackgroundMode */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]])
+    ], SleepTrackingProvider);
+    return SleepTrackingProvider;
+}());
+
+//# sourceMappingURL=sleep-tracking.js.map
+
+/***/ }),
+
+/***/ 159:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CategoryPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_rssparser__ = __webpack_require__(513);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api_newsfeeds__ = __webpack_require__(216);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__database_RssDatabase__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__api_newsfeeds__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__database_RssDatabase__ = __webpack_require__(220);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -149,7 +208,7 @@ var CategoryPage = (function () {
     };
     CategoryPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-category',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\category\category.html"*/`<!--\n  Generated template for the CategoryPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color = "primary">\n    <ion-title>{{category}}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n  <div *ngIf = "!finished_loading">\n    <ion-spinner></ion-spinner>\n  </div>\n\n  <ion-row *ngFor = "let article of article_list">\n    <ion-card col-md-8>\n      <ion-card-content>\n            <div [innerHTML]="article.description"></div>\n            <!--<p class = "articlecontent" col-12> {{article.description}}</p>-->\n      </ion-card-content>\n    </ion-card>\n  </ion-row>\n\n\n</ion-content>\n`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\category\category.html"*/,
+            selector: 'page-category',template:/*ion-inline-start:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/category/category.html"*/`<!--\n  Generated template for the CategoryPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color = "primary">\n    <ion-title>{{category}}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n  <div *ngIf = "!finished_loading">\n    <ion-spinner></ion-spinner>\n  </div>\n\n  <ion-row *ngFor = "let article of article_list">\n    <ion-card col-md-8>\n      <ion-card-content>\n            <div [innerHTML]="article.description"></div>\n            <!--<p class = "articlecontent" col-12> {{article.description}}</p>-->\n      </ion-card-content>\n    </ion-card>\n  </ion-row>\n\n\n</ion-content>\n`/*ion-inline-end:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/category/category.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_5__database_RssDatabase__["a" /* RssDatabase */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_5__database_RssDatabase__["a" /* RssDatabase */]])
@@ -161,7 +220,7 @@ var CategoryPage = (function () {
 
 /***/ }),
 
-/***/ 171:
+/***/ 172:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -174,16 +233,16 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 171;
+webpackEmptyAsyncContext.id = 172;
 
 /***/ }),
 
-/***/ 215:
+/***/ 216:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"../pages/category/category.module": [
-		841,
+		840,
 		0
 	]
 };
@@ -198,19 +257,19 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 215;
+webpackAsyncContext.id = 216;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 216:
+/***/ 217:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NewsFeed; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__ = __webpack_require__(218);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(219);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
 
 
@@ -256,13 +315,13 @@ var NewsFeed = (function () {
 
 /***/ }),
 
-/***/ 219:
+/***/ 220:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RssDatabase; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_storage__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_storage__ = __webpack_require__(48);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -321,21 +380,21 @@ var RssDatabase = (function () {
 
 /***/ }),
 
-/***/ 355:
+/***/ 356:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsControllerPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alarms_alarms__ = __webpack_require__(356);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__schedule_schedule__ = __webpack_require__(360);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tracking_tracking__ = __webpack_require__(484);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__health_advice_health_advice__ = __webpack_require__(485);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__settings_settings__ = __webpack_require__(486);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alarms_alarms__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__schedule_schedule__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tracking_tracking__ = __webpack_require__(485);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__health_advice_health_advice__ = __webpack_require__(486);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__settings_settings__ = __webpack_require__(487);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_alarm_alarm__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_local_notifications__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_storage__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_storage__ = __webpack_require__(48);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -374,7 +433,7 @@ var TabsControllerPage = (function () {
     };
     TabsControllerPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-tabs-controller',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\tabs-controller\tabs-controller.html"*/`<ion-tabs id="tabsController-tabs1">\n\n  <ion-tab [root]="tab1Root" tabTitle="Alarms" tabIcon="alarm" id="tabsController-tab1"></ion-tab>\n\n  <ion-tab [root]="tab2Root" tabTitle="Schedule" tabIcon="calendar" id="tabsController-tab2"></ion-tab>\n\n  <ion-tab [root]="tab3Root" tabTitle="Tracking" tabIcon="moon" id="tabsController-tab3"></ion-tab>\n\n  <ion-tab [root]="tab4Root" tabTitle="Health Advice" tabIcon="heart" id="tabsController-tab4"></ion-tab>\n\n  <ion-tab [root]="tab5Root" tabTitle="Settings" tabIcon="settings" id="tabsController-tab5"></ion-tab>\n\n</ion-tabs>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\tabs-controller\tabs-controller.html"*/
+            selector: 'page-tabs-controller',template:/*ion-inline-start:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/tabs-controller/tabs-controller.html"*/`<ion-tabs id="tabsController-tabs1">\n  <ion-tab [root]="tab1Root" tabTitle="Alarms" tabIcon="alarm" id="tabsController-tab1"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="Schedule" tabIcon="calendar" id="tabsController-tab2"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Tracking" tabIcon="moon" id="tabsController-tab3"></ion-tab>\n  <ion-tab [root]="tab4Root" tabTitle="Health Advice" tabIcon="heart" id="tabsController-tab4"></ion-tab>\n  <ion-tab [root]="tab5Root" tabTitle="Settings" tabIcon="settings" id="tabsController-tab5"></ion-tab>\n</ion-tabs>`/*ion-inline-end:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/tabs-controller/tabs-controller.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_8__ionic_native_local_notifications__["a" /* LocalNotifications */], __WEBPACK_IMPORTED_MODULE_7__providers_alarm_alarm__["a" /* AlarmProvider */], __WEBPACK_IMPORTED_MODULE_9__ionic_storage__["b" /* Storage */]])
     ], TabsControllerPage);
@@ -385,14 +444,14 @@ var TabsControllerPage = (function () {
 
 /***/ }),
 
-/***/ 356:
+/***/ 357:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AlarmsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alarm_alarm__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alarm_alarm__ = __webpack_require__(358);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_alarm_alarm__ = __webpack_require__(64);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -442,7 +501,7 @@ var AlarmsPage = (function () {
     };
     AlarmsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-alarms',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\alarms\alarms.html"*/`<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Alarms\n\n    </ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button icon-only on-click="goToAlarm()">\n\n        <ion-icon name="add"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding id="page2">\n\n  <button (click)="stopNot()">{{nextAlarmIndex}}</button>\n\n  <ion-list id="alarms-container1" *ngFor = "let alarm of alarms; let i = index" style ="border-top-width: 1px; border-top-style: solid">\n\n      <ion-item-sliding>\n\n        <ion-item id="alarms-toggle2">\n\n          <ion-label>\n\n            {{alarm.stringTime}}<br/>\n\n            <span style = "font-size: 0.5em;">Active: {{alarm.active}}<br/>\n\n              Enabled: {{alarm.enabled}}</span>\n\n            <!--{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[0]}}:{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[1]}} {{alarm.alarmTime.toLocaleString().split(", ")[1].split(" ")[1]}}-->\n\n          </ion-label>\n\n          <ion-toggle color="positive" [checked]="alarm.enabled" (ionChange)="changeAlarmStatus(i)"></ion-toggle>\n\n        </ion-item>\n\n        <ion-item-options side="left">\n\n          <button ion-button color="danger" (click)="removeAlarm(i)">DELETE</button>\n\n        </ion-item-options>\n\n      </ion-item-sliding>\n\n  </ion-list>\n\n</ion-content>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\alarms\alarms.html"*/
+            selector: 'page-alarms',template:/*ion-inline-start:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/alarms/alarms.html"*/`<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Alarms\n    </ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only on-click="goToAlarm()">\n        <ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n<ion-content padding id="page2">\n  <button (click)="stopNot()">{{nextAlarmIndex}}</button>\n  <ion-list id="alarms-container1" *ngFor = "let alarm of alarms; let i = index" style ="border-top-width: 1px; border-top-style: solid">\n      <ion-item-sliding>\n        <ion-item id="alarms-toggle2">\n          <ion-label>\n            {{alarm.stringTime}}<br/>\n            <span style = "font-size: 0.5em;">Active: {{alarm.active}}<br/>\n              Enabled: {{alarm.enabled}}</span>\n            <!--{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[0]}}:{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[1]}} {{alarm.alarmTime.toLocaleString().split(", ")[1].split(" ")[1]}}-->\n          </ion-label>\n          <ion-toggle color="positive" [checked]="alarm.enabled" (ionChange)="changeAlarmStatus(i)"></ion-toggle>\n        </ion-item>\n        <ion-item-options side="left">\n          <button ion-button color="danger" (click)="removeAlarm(i)">DELETE</button>\n        </ion-item-options>\n      </ion-item-sliding>\n  </ion-list>\n</ion-content>`/*ion-inline-end:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/alarms/alarms.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__providers_alarm_alarm__["a" /* AlarmProvider */]])
     ], AlarmsPage);
@@ -453,7 +512,7 @@ var AlarmsPage = (function () {
 
 /***/ }),
 
-/***/ 357:
+/***/ 358:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -461,7 +520,7 @@ var AlarmsPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_alarm_alarm__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_date_picker__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_date_picker__ = __webpack_require__(360);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -512,7 +571,7 @@ var AlarmPage = (function () {
     };
     AlarmPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-alarm',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\alarm\alarm.html"*/`<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Alarm\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding id="page7">\n\n  <ion-item (click)="openPicker()" color="dark" id="alarm-list-item8">\n\n    <span>Alarm Time:</span><br/><span style = "text-align: center; font-size: 3em; color: #ff7700">{{display}}</span>\n\n  </ion-item>\n\n  <form id="alarm-form3">\n\n    <ion-list id="alarm-list2">\n\n      <ion-item id="alarm-input1">\n\n        <ion-input type="text" placeholder=""></ion-input>\n\n      </ion-item>\n\n      <ion-item id="alarm-input2">\n\n        <ion-label>\n\n          Ringer (V2)\n\n        </ion-label>\n\n        <ion-input type="email" placeholder=""></ion-input>\n\n      </ion-item>\n\n      <ion-item id="alarm-input3">\n\n        <ion-label>\n\n          Alarm Repeat\n\n          <div class = "row" style ="text-align: center;">\n\n            <div class = "col" style ="text-align: center;">\n\n              <span *ngFor = "let day of weekdayString; let i = index">\n\n                <button ion-button small (click) = "toggleDay(i)" *ngIf="weekdays[i] == false">{{day.charAt(0)}}</button>\n\n                <button ion-button small color = "light" (click) = "toggleDay(i)" *ngIf="weekdays[i] == true">{{day.charAt(0)}}</button>\n\n              </span>\n\n            </div>\n\n          </div>\n\n        </ion-label>\n\n      </ion-item>\n\n    </ion-list>\n\n    <ion-item color="dark" id="alarm-list-item11">\n\n      Geo-sensitive (V2)\n\n    </ion-item>\n\n    <button (click) = "createAlarm()" id="alarm-button2" ion-button color="positive" block>\n\n      Set Alarm!\n\n    </button>\n\n  </form>\n\n</ion-content>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\alarm\alarm.html"*/
+            selector: 'page-alarm',template:/*ion-inline-start:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/alarm/alarm.html"*/`<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Alarm\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding id="page7">\n  <ion-item (click)="openPicker()" color="dark" id="alarm-list-item8">\n    <span>Alarm Time:</span><br/><span style = "text-align: center; font-size: 3em; color: #ff7700">{{display}}</span>\n  </ion-item>\n  <form id="alarm-form3">\n    <ion-list id="alarm-list2">\n      <ion-item id="alarm-input1">\n        <ion-input type="text" placeholder=""></ion-input>\n      </ion-item>\n      <ion-item id="alarm-input2">\n        <ion-label>\n          Ringer (V2)\n        </ion-label>\n        <ion-input type="email" placeholder=""></ion-input>\n      </ion-item>\n      <ion-item id="alarm-input3">\n        <ion-label>\n          Alarm Repeat\n          <div class = "row" style ="text-align: center;">\n            <div class = "col" style ="text-align: center;">\n              <span *ngFor = "let day of weekdayString; let i = index">\n                <button ion-button small (click) = "toggleDay(i)" *ngIf="weekdays[i] == false">{{day.charAt(0)}}</button>\n                <button ion-button small color = "light" (click) = "toggleDay(i)" *ngIf="weekdays[i] == true">{{day.charAt(0)}}</button>\n              </span>\n            </div>\n          </div>\n        </ion-label>\n      </ion-item>\n    </ion-list>\n    <ion-item color="dark" id="alarm-list-item11">\n      Geo-sensitive (V2)\n    </ion-item>\n    <button (click) = "createAlarm()" id="alarm-button2" ion-button color="positive" block>\n      Set Alarm!\n    </button>\n  </form>\n</ion-content>`/*ion-inline-end:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/alarm/alarm.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_alarm_alarm__["a" /* AlarmProvider */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_date_picker__["a" /* DatePicker */]])
     ], AlarmPage);
@@ -523,7 +582,7 @@ var AlarmPage = (function () {
 
 /***/ }),
 
-/***/ 360:
+/***/ 361:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -532,6 +591,7 @@ var AlarmPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_sleep_tracking_sleep_tracking__ = __webpack_require__(158);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -545,19 +605,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var SchedulePage = (function () {
-    function SchedulePage(navCtrl, alrtCtrl) {
+    function SchedulePage(navCtrl, alrtCtrl, tracker) {
         this.navCtrl = navCtrl;
         this.alrtCtrl = alrtCtrl;
+        this.tracker = tracker;
         this.eventSource = [];
         this.selectedDay = new Date();
         this.calendar = {
             mode: 'month',
             currentDate: this.selectedDay
         };
-        this.addEvent('Today', new Date(Date.now()), new Date(Date.now()));
-        this.addEvent('Still', new Date(Date.now()), new Date(Date.now()));
+        //this.addEvent("OOOH", new Date(Date.now()), new Date(Date.now()));
     }
+    SchedulePage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        this.tracker.fetchEvents().then(function (events) {
+            _this.eventSource = events;
+        });
+        this.addEvent("OOOH", new Date(Date.now()), new Date(Date.now()));
+    };
     SchedulePage.prototype.addEvent = function (title, start, end) {
         var allday = false;
         var startTime = start.toISOString();
@@ -580,9 +648,9 @@ var SchedulePage = (function () {
     };
     SchedulePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-schedule',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\schedule\schedule.html"*/`<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Schedule\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding id="page3">\n\n  <h3 style="text-align:center;">\n\n    Sleeping Tracker Data:\n\n  </h3>\n\n  <h1>{{viewTitle}}</h1>\n\n  <calendar [eventSource]="eventSource"\n\n            [calendarMode] = "calendar.mode" [currentDate] = "calendar.currentDate"\n\n            (onEventSelected)="onEventSelected($event)"\n\n            (onTitleChanged)="onViewTitleChanged($event)"\n\n            (onTimeSelected)="onTimeSelected($event)"\n\n            step = "30"\n\n            class = "calendar">\n\n  </calendar>\n\n  <h3  style="text-align:center;">\n\n    Average Sleeping Hours\n\n  </h3>\n\n\n\n</ion-content>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\schedule\schedule.html"*/
+            selector: 'page-schedule',template:/*ion-inline-start:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/schedule/schedule.html"*/`<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Schedule\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding id="page3">\n  <h3 style="text-align:center;">\n    Sleeping Tracker Data:\n  </h3>\n  <h1>{{viewTitle}}</h1>\n  <calendar [eventSource]="eventSource"\n            [calendarMode] = "calendar.mode" [currentDate] = "calendar.currentDate"\n            (onEventSelected)="onEventSelected($event)"\n            (onTitleChanged)="onViewTitleChanged($event)"\n            (onTimeSelected)="onTimeSelected($event)"\n            step = "30"\n            class = "calendar">\n  </calendar>\n  <!--<h3  style="text-align:center;">\n    Average Sleeping Hours\n  </h3>-->\n\n</ion-content>`/*ion-inline-end:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/schedule/schedule.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__providers_sleep_tracking_sleep_tracking__["a" /* SleepTrackingProvider */]])
     ], SchedulePage);
     return SchedulePage;
 }());
@@ -591,7 +659,7 @@ var SchedulePage = (function () {
 
 /***/ }),
 
-/***/ 484:
+/***/ 485:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -599,8 +667,9 @@ var SchedulePage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_alarm_alarm__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_local_notifications__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_sleep_tracking_sleep_tracking__ = __webpack_require__(158);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -615,15 +684,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var TrackingPage = (function () {
-    function TrackingPage(navCtrl, alarmProvider, storage, localNotifications) {
+    function TrackingPage(navCtrl, alarmProvider, storage, localNotifications, track) {
         this.navCtrl = navCtrl;
         this.alarmProvider = alarmProvider;
         this.storage = storage;
         this.localNotifications = localNotifications;
+        this.track = track;
         // this tells the tabs component which Pages
         // should be each tab's root Page
-        this.remAwake = true;
+        this.remAwake = false;
         this.message = "";
         this.fetchRem();
     }
@@ -637,49 +708,57 @@ var TrackingPage = (function () {
         var _this = this;
         return this.storage.get('remAwake')
             .then(function (remAwake) {
-            _this.remAwake = remAwake == null ? [] : remAwake;
+            _this.remAwake = remAwake == null ? true : remAwake;
             return _this.remAwake;
         });
     };
     TrackingPage.prototype.updateSleepTracking = function () {
+        this.remAwake = !this.remAwake;
         this.storage.set('remAwake', this.remAwake);
     };
     TrackingPage.prototype.startTracking = function () {
+        var _this = this;
         var time = 0;
         this.alarmProvider.getAlarmTime().then(function (result) {
             time = result;
-        });
-        if (time == 0) {
-            this.message = "Oops!  You haven't set an alarm yet.  I can't track your sleep.";
-        }
-        else {
-            var now = Date.now();
-            var distance = time + 600000 - now; //Time to sleep at plus 10 minute grace period minus now: target milliseconds to sleep.
-            if (this.remAwake) {
-                //this.alarmProvider.disableAllNotifications();
-                var targetTime = 600000; //10 Minutes in milliseconds, average amount of time to fall asleep.
-                var iterations = 0;
-                while (targetTime + 5400000 < distance) {
-                    targetTime += 5400000; //Adds 1 and a half hour to target time.
-                }
-                for (var x = 1; x <= 60; x++) {
-                    this.localNotifications.schedule({
-                        id: x * 1000,
-                        title: 'Ring ring!',
-                        text: 'Time to wake up!',
-                        trigger: { at: new Date(Date.now() + targetTime + x * 1000) },
-                        data: { mydata: 'My hidden message this is' }
-                    });
-                }
+            console.log(time);
+            if (time == 0) {
+                _this.message = "Oops!  You haven't set an alarm yet.  I can't track your sleep.";
             }
-            var hoursSlept = (distance * 1.0) / (3600 * 1000);
-        }
+            else {
+                _this.message = "Tracking Sleep";
+                var now = Date.now();
+                var distance = time - now; //Time to sleep at plus 10 minute grace period minus now: target milliseconds to sleep.
+                if (_this.remAwake) {
+                    //this.alarmProvider.disableAllNotifications();
+                    var targetTime = 600000; //10 Minutes in milliseconds, average amount of time to fall asleep.
+                    var iterations = 0;
+                    while (targetTime + 5400000 < distance) {
+                        targetTime += 5400000; //Adds 1 and a half hour to target time.
+                    }
+                    for (var x = 1; x <= 60; x++) {
+                        _this.localNotifications.schedule({
+                            id: x * 1000,
+                            title: 'Ring ring!',
+                            text: 'Time to wake up!',
+                            trigger: { at: new Date(Date.now() + targetTime + x * 1000) },
+                            data: { mydata: 'My hidden message this is' }
+                        });
+                    }
+                    distance = targetTime - 600000;
+                }
+                var hoursSlept = (distance * 1.0) / (3600 * 1000);
+                console.log("hours slept: " + hoursSlept);
+                _this.message = _this.message + "REM AWAKE: " + _this.remAwake + " Now " + now + " alarmtime " + time + " milliseconds slept: " + distance + " hours slept: " + hoursSlept;
+                _this.track.addEvent("Slept for " + Math.round(hoursSlept * 100) / 100 + " hours.", new Date(now), new Date(now + distance));
+            }
+        });
     };
     TrackingPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-tracking',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\tracking\tracking.html"*/`<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Tracking\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding id="page4">\n\n <h1 style ="text-align: center;">Welcome to the Sleep Tracker!</h1>\n\n    <h2>Tracking will be recorded to your sleep schedule!</h2>\n\n  <h3>Enable REM Awake to wake you up at the end of your REM cycle, so you feel rejuvenated and energetic all day long.</h3>\n\n  <ion-item id="alarms-toggle2">\n\n    <ion-label>\n\n      REM Awake\n\n    </ion-label>\n\n    <ion-toggle color="positive" [checked]="sleepTracking" (ionChange)="updateSleepTracking()"></ion-toggle>\n\n  </ion-item>\n\n  <h2 style = "text-align: center;">Start Sleeping!</h2>\n\n  <h1 style = "text-align: center;"><button class="circlebutton" icon-only on-click="goToAlarm()">\n\n    <ion-icon name="disk" large></ion-icon>\n\n  </button></h1>\n\n</ion-content>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\tracking\tracking.html"*/
+            selector: 'page-tracking',template:/*ion-inline-start:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/tracking/tracking.html"*/`<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Tracking\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding id="page4">\n <h1 style ="text-align: center;">Welcome to the Sleep Tracker!</h1>\n    <h2>Tracking will be recorded to your sleep schedule!</h2>\n  <h3>Enable REM Awake to wake you up at the end of your REM cycle, so you feel rejuvenated and energetic all day long.</h3>\n  <ion-item id="alarms-toggle2">\n    <ion-label>\n      REM Awake\n    </ion-label>\n    <ion-toggle *ngIf="remAwake" color="positive" checked="true" (ionChange)="updateSleepTracking()"></ion-toggle>\n      <ion-toggle *ngIf="!remAwake" color="positive" checked="false" (ionChange)="updateSleepTracking()"></ion-toggle>\n  </ion-item>\n  <h2 style = "text-align: center;">Start Sleeping!</h2>\n    <p>{{message}}</p>\n  <h1 style = "text-align: center;"><button class="circlebutton" icon-only (click)="startTracking()">\n    <ion-icon name="disk" large></ion-icon>\n  </button></h1>\n</ion-content>`/*ion-inline-end:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/tracking/tracking.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_alarm_alarm__["a" /* AlarmProvider */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_local_notifications__["a" /* LocalNotifications */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_alarm_alarm__["a" /* AlarmProvider */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_local_notifications__["a" /* LocalNotifications */], __WEBPACK_IMPORTED_MODULE_5__providers_sleep_tracking_sleep_tracking__["a" /* SleepTrackingProvider */]])
     ], TrackingPage);
     return TrackingPage;
 }());
@@ -688,17 +767,17 @@ var TrackingPage = (function () {
 
 /***/ }),
 
-/***/ 485:
+/***/ 486:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HealthAdvicePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__category_category__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_newsfeeds__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__category_category__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__api_newsfeeds__ = __webpack_require__(217);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__database_RssDatabase__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__database_RssDatabase__ = __webpack_require__(220);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -744,7 +823,7 @@ var HealthAdvicePage = (function () {
     };
     HealthAdvicePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-health-advice',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\health-advice\health-advice.html"*/`<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Health Advice\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding id="page5">\n\n  <br/>\n\n  <h1 style = "text-align: center; font-size: 5em;"><ion-icon name = "heart"></ion-icon></h1>\n\n  <br/>\n\n  <ion-list>\n\n    <ion-item mode = "ios" (click) = "categoryClick(category)" class = "category-item" *ngFor = "let category of categories" ion-item>\n\n      {{category}}\n\n    </ion-item>\n\n\n\n  </ion-list>\n\n\n\n</ion-content>\n\n`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\health-advice\health-advice.html"*/,
+            selector: 'page-health-advice',template:/*ion-inline-start:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/health-advice/health-advice.html"*/`<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Health Advice\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding id="page5">\n  <br/>\n  <h1 style = "text-align: center; font-size: 5em;"><ion-icon name = "heart"></ion-icon></h1>\n  <br/>\n  <ion-list>\n    <ion-item mode = "ios" (click) = "categoryClick(category)" class = "category-item" *ngFor = "let category of categories" ion-item>\n      {{category}}\n    </ion-item>\n\n  </ion-list>\n\n</ion-content>\n`/*ion-inline-end:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/health-advice/health-advice.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_5__database_RssDatabase__["a" /* RssDatabase */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* ModalController */], __WEBPACK_IMPORTED_MODULE_5__database_RssDatabase__["a" /* RssDatabase */]])
@@ -756,7 +835,7 @@ var HealthAdvicePage = (function () {
 
 /***/ }),
 
-/***/ 486:
+/***/ 487:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -810,7 +889,7 @@ var SettingsPage = (function () {
     };
     SettingsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-settings',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\settings\settings.html"*/`<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Settings\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding id="page6">\n\n  <form id="settings-form4">\n\n    <ion-item id="settings-toggle5">\n\n      <ion-label>\n\n        Notifications\n\n      </ion-label>\n\n      <ion-toggle color="positive" checked="false"></ion-toggle>\n\n    </ion-item>\n\n    <ion-item id="settings-toggle6">\n\n      <ion-label (click)="updateTheme()">\n\n        Dark Theme\n\n      </ion-label>\n\n        <ion-toggle (ionChange)="updateTheme()" [checked]="darktheme"></ion-toggle>\n\n    </ion-item>\n\n    <ion-item id="settings-toggle7">\n\n      <ion-label>\n\n        Sleep Tracking\n\n      </ion-label>\n\n      <ion-toggle color="positive" checked="false"></ion-toggle>\n\n    </ion-item>\n\n    <ion-item id="settings-toggle8">\n\n      <ion-label>\n\n        Bluetooth enabled\n\n      </ion-label>\n\n      <ion-toggle color="positive" checked="true"></ion-toggle>\n\n    </ion-item>\n\n  </form>\n\n</ion-content>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\pages\settings\settings.html"*/
+            selector: 'page-settings',template:/*ion-inline-start:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/settings/settings.html"*/`<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Settings\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding id="page6">\n  <form id="settings-form4">\n    <ion-item id="settings-toggle5">\n      <ion-label>\n        Notifications\n      </ion-label>\n      <ion-toggle color="positive" checked="false"></ion-toggle>\n    </ion-item>\n    <ion-item id="settings-toggle6">\n      <ion-label (click)="updateTheme()">\n        Dark Theme\n      </ion-label>\n        <ion-toggle (ionChange)="updateTheme()" [checked]="darktheme"></ion-toggle>\n    </ion-item>\n    <ion-item id="settings-toggle7">\n      <ion-label>\n        Sleep Tracking\n      </ion-label>\n      <ion-toggle color="positive" checked="false"></ion-toggle>\n    </ion-item>\n    <ion-item id="settings-toggle8">\n      <ion-label>\n        Bluetooth enabled\n      </ion-label>\n      <ion-toggle color="positive" checked="true"></ion-toggle>\n    </ion-item>\n  </form>\n</ion-content>`/*ion-inline-end:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/pages/settings/settings.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_app_settings_app_settings__["a" /* AppSettingsProvider */]])
     ], SettingsPage);
@@ -844,31 +923,31 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(534);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_alarms_alarms__ = __webpack_require__(356);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_schedule_schedule__ = __webpack_require__(360);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tracking_tracking__ = __webpack_require__(484);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_tabs_controller_tabs_controller__ = __webpack_require__(355);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_health_advice_health_advice__ = __webpack_require__(485);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_category_category__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_settings_settings__ = __webpack_require__(486);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_alarm_alarm__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_alarms_alarms__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_schedule_schedule__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tracking_tracking__ = __webpack_require__(485);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_tabs_controller_tabs_controller__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_health_advice_health_advice__ = __webpack_require__(486);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_category_category__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_settings_settings__ = __webpack_require__(487);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_alarm_alarm__ = __webpack_require__(358);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_background_mode__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_native_audio__ = __webpack_require__(358);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_native_audio__ = __webpack_require__(359);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_bluetooth_serial__ = __webpack_require__(822);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_local_notifications__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_date_picker__ = __webpack_require__(359);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_storage__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_date_picker__ = __webpack_require__(360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_storage__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_feed_adder_modal_feed_adder_modal__ = __webpack_require__(823);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_http__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_forms__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_status_bar__ = __webpack_require__(259);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_splash_screen__ = __webpack_require__(263);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_status_bar__ = __webpack_require__(260);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_splash_screen__ = __webpack_require__(264);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__providers_app_settings_app_settings__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__providers_sleep_tracking_sleep_tracking__ = __webpack_require__(825);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__providers_sleep_tracking_sleep_tracking__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_alarm_alarm__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__providers_light_light__ = __webpack_require__(827);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__providers_sqldatabase_sqldatabase__ = __webpack_require__(828);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_ionic2_calendar__ = __webpack_require__(830);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__providers_light_light__ = __webpack_require__(825);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__providers_sqldatabase_sqldatabase__ = __webpack_require__(827);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_ionic2_calendar__ = __webpack_require__(829);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1040,10 +1119,10 @@ var RssParse = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(259);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(263);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(260);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(264);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_app_settings_app_settings__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_tabs_controller_tabs_controller__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_tabs_controller_tabs_controller__ = __webpack_require__(356);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1073,7 +1152,7 @@ var MyApp = (function () {
         });
     }
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\app\app.html"*/`<!--<ion-nav #mainContent [root]="rootPage"></ion-nav>-->\n\n<ion-nav #mainContent [root]="rootPage" [class]="selectedTheme"></ion-nav>`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\app\app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/app/app.html"*/`<!--<ion-nav #mainContent [root]="rootPage"></ion-nav>-->\n<ion-nav #mainContent [root]="rootPage" [class]="selectedTheme"></ion-nav>`/*ion-inline-end:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/app/app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_4__providers_app_settings_app_settings__["a" /* AppSettingsProvider */]])
     ], MyApp);
@@ -1093,9 +1172,9 @@ var MyApp = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_geosensitive__ = __webpack_require__(819);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_background_mode__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_audio__ = __webpack_require__(358);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_native_audio__ = __webpack_require__(359);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_local_notifications__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ionic_angular__ = __webpack_require__(14);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1117,7 +1196,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var AlarmProvider = (function () {
     function AlarmProvider(bg, plt, alertCtrl, nativeAudio, localNotifications, storage) {
-        //alarms = storage alarms;
         this.bg = bg;
         this.plt = plt;
         this.alertCtrl = alertCtrl;
@@ -1125,6 +1203,7 @@ var AlarmProvider = (function () {
         this.localNotifications = localNotifications;
         this.storage = storage;
         this.alarms = [];
+        //alarms = storage alarms;
         //this.bg.enable();
         console.log('Hello AlarmProvider Provider');
         /*this.timer = 0;
@@ -1307,252 +1386,252 @@ var Geosensitive = (function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 361,
-	"./af.js": 361,
-	"./ar": 362,
-	"./ar-dz": 363,
-	"./ar-dz.js": 363,
-	"./ar-kw": 364,
-	"./ar-kw.js": 364,
-	"./ar-ly": 365,
-	"./ar-ly.js": 365,
-	"./ar-ma": 366,
-	"./ar-ma.js": 366,
-	"./ar-sa": 367,
-	"./ar-sa.js": 367,
-	"./ar-tn": 368,
-	"./ar-tn.js": 368,
-	"./ar.js": 362,
-	"./az": 369,
-	"./az.js": 369,
-	"./be": 370,
-	"./be.js": 370,
-	"./bg": 371,
-	"./bg.js": 371,
-	"./bm": 372,
-	"./bm.js": 372,
-	"./bn": 373,
-	"./bn.js": 373,
-	"./bo": 374,
-	"./bo.js": 374,
-	"./br": 375,
-	"./br.js": 375,
-	"./bs": 376,
-	"./bs.js": 376,
-	"./ca": 377,
-	"./ca.js": 377,
-	"./cs": 378,
-	"./cs.js": 378,
-	"./cv": 379,
-	"./cv.js": 379,
-	"./cy": 380,
-	"./cy.js": 380,
-	"./da": 381,
-	"./da.js": 381,
-	"./de": 382,
-	"./de-at": 383,
-	"./de-at.js": 383,
-	"./de-ch": 384,
-	"./de-ch.js": 384,
-	"./de.js": 382,
-	"./dv": 385,
-	"./dv.js": 385,
-	"./el": 386,
-	"./el.js": 386,
-	"./en-au": 387,
-	"./en-au.js": 387,
-	"./en-ca": 388,
-	"./en-ca.js": 388,
-	"./en-gb": 389,
-	"./en-gb.js": 389,
-	"./en-ie": 390,
-	"./en-ie.js": 390,
-	"./en-il": 391,
-	"./en-il.js": 391,
-	"./en-nz": 392,
-	"./en-nz.js": 392,
-	"./eo": 393,
-	"./eo.js": 393,
-	"./es": 394,
-	"./es-do": 395,
-	"./es-do.js": 395,
-	"./es-us": 396,
-	"./es-us.js": 396,
-	"./es.js": 394,
-	"./et": 397,
-	"./et.js": 397,
-	"./eu": 398,
-	"./eu.js": 398,
-	"./fa": 399,
-	"./fa.js": 399,
-	"./fi": 400,
-	"./fi.js": 400,
-	"./fo": 401,
-	"./fo.js": 401,
-	"./fr": 402,
-	"./fr-ca": 403,
-	"./fr-ca.js": 403,
-	"./fr-ch": 404,
-	"./fr-ch.js": 404,
-	"./fr.js": 402,
-	"./fy": 405,
-	"./fy.js": 405,
-	"./gd": 406,
-	"./gd.js": 406,
-	"./gl": 407,
-	"./gl.js": 407,
-	"./gom-latn": 408,
-	"./gom-latn.js": 408,
-	"./gu": 409,
-	"./gu.js": 409,
-	"./he": 410,
-	"./he.js": 410,
-	"./hi": 411,
-	"./hi.js": 411,
-	"./hr": 412,
-	"./hr.js": 412,
-	"./hu": 413,
-	"./hu.js": 413,
-	"./hy-am": 414,
-	"./hy-am.js": 414,
-	"./id": 415,
-	"./id.js": 415,
-	"./is": 416,
-	"./is.js": 416,
-	"./it": 417,
-	"./it.js": 417,
-	"./ja": 418,
-	"./ja.js": 418,
-	"./jv": 419,
-	"./jv.js": 419,
-	"./ka": 420,
-	"./ka.js": 420,
-	"./kk": 421,
-	"./kk.js": 421,
-	"./km": 422,
-	"./km.js": 422,
-	"./kn": 423,
-	"./kn.js": 423,
-	"./ko": 424,
-	"./ko.js": 424,
-	"./ky": 425,
-	"./ky.js": 425,
-	"./lb": 426,
-	"./lb.js": 426,
-	"./lo": 427,
-	"./lo.js": 427,
-	"./lt": 428,
-	"./lt.js": 428,
-	"./lv": 429,
-	"./lv.js": 429,
-	"./me": 430,
-	"./me.js": 430,
-	"./mi": 431,
-	"./mi.js": 431,
-	"./mk": 432,
-	"./mk.js": 432,
-	"./ml": 433,
-	"./ml.js": 433,
-	"./mn": 434,
-	"./mn.js": 434,
-	"./mr": 435,
-	"./mr.js": 435,
-	"./ms": 436,
-	"./ms-my": 437,
-	"./ms-my.js": 437,
-	"./ms.js": 436,
-	"./mt": 438,
-	"./mt.js": 438,
-	"./my": 439,
-	"./my.js": 439,
-	"./nb": 440,
-	"./nb.js": 440,
-	"./ne": 441,
-	"./ne.js": 441,
-	"./nl": 442,
-	"./nl-be": 443,
-	"./nl-be.js": 443,
-	"./nl.js": 442,
-	"./nn": 444,
-	"./nn.js": 444,
-	"./pa-in": 445,
-	"./pa-in.js": 445,
-	"./pl": 446,
-	"./pl.js": 446,
-	"./pt": 447,
-	"./pt-br": 448,
-	"./pt-br.js": 448,
-	"./pt.js": 447,
-	"./ro": 449,
-	"./ro.js": 449,
-	"./ru": 450,
-	"./ru.js": 450,
-	"./sd": 451,
-	"./sd.js": 451,
-	"./se": 452,
-	"./se.js": 452,
-	"./si": 453,
-	"./si.js": 453,
-	"./sk": 454,
-	"./sk.js": 454,
-	"./sl": 455,
-	"./sl.js": 455,
-	"./sq": 456,
-	"./sq.js": 456,
-	"./sr": 457,
-	"./sr-cyrl": 458,
-	"./sr-cyrl.js": 458,
-	"./sr.js": 457,
-	"./ss": 459,
-	"./ss.js": 459,
-	"./sv": 460,
-	"./sv.js": 460,
-	"./sw": 461,
-	"./sw.js": 461,
-	"./ta": 462,
-	"./ta.js": 462,
-	"./te": 463,
-	"./te.js": 463,
-	"./tet": 464,
-	"./tet.js": 464,
-	"./tg": 465,
-	"./tg.js": 465,
-	"./th": 466,
-	"./th.js": 466,
-	"./tl-ph": 467,
-	"./tl-ph.js": 467,
-	"./tlh": 468,
-	"./tlh.js": 468,
-	"./tr": 469,
-	"./tr.js": 469,
-	"./tzl": 470,
-	"./tzl.js": 470,
-	"./tzm": 471,
-	"./tzm-latn": 472,
-	"./tzm-latn.js": 472,
-	"./tzm.js": 471,
-	"./ug-cn": 473,
-	"./ug-cn.js": 473,
-	"./uk": 474,
-	"./uk.js": 474,
-	"./ur": 475,
-	"./ur.js": 475,
-	"./uz": 476,
-	"./uz-latn": 477,
-	"./uz-latn.js": 477,
-	"./uz.js": 476,
-	"./vi": 478,
-	"./vi.js": 478,
-	"./x-pseudo": 479,
-	"./x-pseudo.js": 479,
-	"./yo": 480,
-	"./yo.js": 480,
-	"./zh-cn": 481,
-	"./zh-cn.js": 481,
-	"./zh-hk": 482,
-	"./zh-hk.js": 482,
-	"./zh-tw": 483,
-	"./zh-tw.js": 483
+	"./af": 362,
+	"./af.js": 362,
+	"./ar": 363,
+	"./ar-dz": 364,
+	"./ar-dz.js": 364,
+	"./ar-kw": 365,
+	"./ar-kw.js": 365,
+	"./ar-ly": 366,
+	"./ar-ly.js": 366,
+	"./ar-ma": 367,
+	"./ar-ma.js": 367,
+	"./ar-sa": 368,
+	"./ar-sa.js": 368,
+	"./ar-tn": 369,
+	"./ar-tn.js": 369,
+	"./ar.js": 363,
+	"./az": 370,
+	"./az.js": 370,
+	"./be": 371,
+	"./be.js": 371,
+	"./bg": 372,
+	"./bg.js": 372,
+	"./bm": 373,
+	"./bm.js": 373,
+	"./bn": 374,
+	"./bn.js": 374,
+	"./bo": 375,
+	"./bo.js": 375,
+	"./br": 376,
+	"./br.js": 376,
+	"./bs": 377,
+	"./bs.js": 377,
+	"./ca": 378,
+	"./ca.js": 378,
+	"./cs": 379,
+	"./cs.js": 379,
+	"./cv": 380,
+	"./cv.js": 380,
+	"./cy": 381,
+	"./cy.js": 381,
+	"./da": 382,
+	"./da.js": 382,
+	"./de": 383,
+	"./de-at": 384,
+	"./de-at.js": 384,
+	"./de-ch": 385,
+	"./de-ch.js": 385,
+	"./de.js": 383,
+	"./dv": 386,
+	"./dv.js": 386,
+	"./el": 387,
+	"./el.js": 387,
+	"./en-au": 388,
+	"./en-au.js": 388,
+	"./en-ca": 389,
+	"./en-ca.js": 389,
+	"./en-gb": 390,
+	"./en-gb.js": 390,
+	"./en-ie": 391,
+	"./en-ie.js": 391,
+	"./en-il": 392,
+	"./en-il.js": 392,
+	"./en-nz": 393,
+	"./en-nz.js": 393,
+	"./eo": 394,
+	"./eo.js": 394,
+	"./es": 395,
+	"./es-do": 396,
+	"./es-do.js": 396,
+	"./es-us": 397,
+	"./es-us.js": 397,
+	"./es.js": 395,
+	"./et": 398,
+	"./et.js": 398,
+	"./eu": 399,
+	"./eu.js": 399,
+	"./fa": 400,
+	"./fa.js": 400,
+	"./fi": 401,
+	"./fi.js": 401,
+	"./fo": 402,
+	"./fo.js": 402,
+	"./fr": 403,
+	"./fr-ca": 404,
+	"./fr-ca.js": 404,
+	"./fr-ch": 405,
+	"./fr-ch.js": 405,
+	"./fr.js": 403,
+	"./fy": 406,
+	"./fy.js": 406,
+	"./gd": 407,
+	"./gd.js": 407,
+	"./gl": 408,
+	"./gl.js": 408,
+	"./gom-latn": 409,
+	"./gom-latn.js": 409,
+	"./gu": 410,
+	"./gu.js": 410,
+	"./he": 411,
+	"./he.js": 411,
+	"./hi": 412,
+	"./hi.js": 412,
+	"./hr": 413,
+	"./hr.js": 413,
+	"./hu": 414,
+	"./hu.js": 414,
+	"./hy-am": 415,
+	"./hy-am.js": 415,
+	"./id": 416,
+	"./id.js": 416,
+	"./is": 417,
+	"./is.js": 417,
+	"./it": 418,
+	"./it.js": 418,
+	"./ja": 419,
+	"./ja.js": 419,
+	"./jv": 420,
+	"./jv.js": 420,
+	"./ka": 421,
+	"./ka.js": 421,
+	"./kk": 422,
+	"./kk.js": 422,
+	"./km": 423,
+	"./km.js": 423,
+	"./kn": 424,
+	"./kn.js": 424,
+	"./ko": 425,
+	"./ko.js": 425,
+	"./ky": 426,
+	"./ky.js": 426,
+	"./lb": 427,
+	"./lb.js": 427,
+	"./lo": 428,
+	"./lo.js": 428,
+	"./lt": 429,
+	"./lt.js": 429,
+	"./lv": 430,
+	"./lv.js": 430,
+	"./me": 431,
+	"./me.js": 431,
+	"./mi": 432,
+	"./mi.js": 432,
+	"./mk": 433,
+	"./mk.js": 433,
+	"./ml": 434,
+	"./ml.js": 434,
+	"./mn": 435,
+	"./mn.js": 435,
+	"./mr": 436,
+	"./mr.js": 436,
+	"./ms": 437,
+	"./ms-my": 438,
+	"./ms-my.js": 438,
+	"./ms.js": 437,
+	"./mt": 439,
+	"./mt.js": 439,
+	"./my": 440,
+	"./my.js": 440,
+	"./nb": 441,
+	"./nb.js": 441,
+	"./ne": 442,
+	"./ne.js": 442,
+	"./nl": 443,
+	"./nl-be": 444,
+	"./nl-be.js": 444,
+	"./nl.js": 443,
+	"./nn": 445,
+	"./nn.js": 445,
+	"./pa-in": 446,
+	"./pa-in.js": 446,
+	"./pl": 447,
+	"./pl.js": 447,
+	"./pt": 448,
+	"./pt-br": 449,
+	"./pt-br.js": 449,
+	"./pt.js": 448,
+	"./ro": 450,
+	"./ro.js": 450,
+	"./ru": 451,
+	"./ru.js": 451,
+	"./sd": 452,
+	"./sd.js": 452,
+	"./se": 453,
+	"./se.js": 453,
+	"./si": 454,
+	"./si.js": 454,
+	"./sk": 455,
+	"./sk.js": 455,
+	"./sl": 456,
+	"./sl.js": 456,
+	"./sq": 457,
+	"./sq.js": 457,
+	"./sr": 458,
+	"./sr-cyrl": 459,
+	"./sr-cyrl.js": 459,
+	"./sr.js": 458,
+	"./ss": 460,
+	"./ss.js": 460,
+	"./sv": 461,
+	"./sv.js": 461,
+	"./sw": 462,
+	"./sw.js": 462,
+	"./ta": 463,
+	"./ta.js": 463,
+	"./te": 464,
+	"./te.js": 464,
+	"./tet": 465,
+	"./tet.js": 465,
+	"./tg": 466,
+	"./tg.js": 466,
+	"./th": 467,
+	"./th.js": 467,
+	"./tl-ph": 468,
+	"./tl-ph.js": 468,
+	"./tlh": 469,
+	"./tlh.js": 469,
+	"./tr": 470,
+	"./tr.js": 470,
+	"./tzl": 471,
+	"./tzl.js": 471,
+	"./tzm": 472,
+	"./tzm-latn": 473,
+	"./tzm-latn.js": 473,
+	"./tzm.js": 472,
+	"./ug-cn": 474,
+	"./ug-cn.js": 474,
+	"./uk": 475,
+	"./uk.js": 475,
+	"./ur": 476,
+	"./ur.js": 476,
+	"./uz": 477,
+	"./uz-latn": 478,
+	"./uz-latn.js": 478,
+	"./uz.js": 477,
+	"./vi": 479,
+	"./vi.js": 479,
+	"./x-pseudo": 480,
+	"./x-pseudo.js": 480,
+	"./yo": 481,
+	"./yo.js": 481,
+	"./zh-cn": 482,
+	"./zh-cn.js": 482,
+	"./zh-hk": 483,
+	"./zh-hk.js": 483,
+	"./zh-tw": 484,
+	"./zh-tw.js": 484
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -1612,7 +1691,7 @@ var FeedAdderModalComponent = (function () {
     };
     FeedAdderModalComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'feed-adder-modal',template:/*ion-inline-start:"C:\Users\Peter\Documents\GitHub\SleepApp\src\components\feed-adder-modal\feed-adder-modal.html"*/`<ion-header>\n  <ion-navbar color = "primary">\n    <ion-title>\n      Add a RSS Feed\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <ion-item>\n\n    <ion-label>RSS Link: </ion-label>\n    <ion-input type = "text" [(ngModel)] = "rss_link.link"></ion-input>\n\n  </ion-item>\n\n  <ion-item>\n    <ion-label>Category: </ion-label>\n    <ion-input type = "text" placeholder = "sports" [(ngModel)] = "rss_link.category"></ion-input>\n  </ion-item>\n\n\n  <ion-footer>\n    <ion-row>\n      <button (click) = "submitRSSFeed()" col margin ion-button color = "primary">Submit</button>\n      <button (click) = "cancel()" col margin ion-button color = "danger">Cancel</button>\n    </ion-row>\n  </ion-footer>\n\n</ion-content>\n`/*ion-inline-end:"C:\Users\Peter\Documents\GitHub\SleepApp\src\components\feed-adder-modal\feed-adder-modal.html"*/
+            selector: 'feed-adder-modal',template:/*ion-inline-start:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/components/feed-adder-modal/feed-adder-modal.html"*/`<ion-header>\n  <ion-navbar color = "primary">\n    <ion-title>\n      Add a RSS Feed\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <ion-item>\n\n    <ion-label>RSS Link: </ion-label>\n    <ion-input type = "text" [(ngModel)] = "rss_link.link"></ion-input>\n\n  </ion-item>\n\n  <ion-item>\n    <ion-label>Category: </ion-label>\n    <ion-input type = "text" placeholder = "sports" [(ngModel)] = "rss_link.category"></ion-input>\n  </ion-item>\n\n\n  <ion-footer>\n    <ion-row>\n      <button (click) = "submitRSSFeed()" col margin ion-button color = "primary">Submit</button>\n      <button (click) = "cancel()" col margin ion-button color = "danger">Cancel</button>\n    </ion-row>\n  </ion-footer>\n\n</ion-content>\n`/*ion-inline-end:"/Users/PeterMartin/Documents/GitHub/SleepApp/src/components/feed-adder-modal/feed-adder-modal.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]])
     ], FeedAdderModalComponent);
@@ -1649,100 +1728,8 @@ var Link = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SleepTrackingProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(487);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_background_mode__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_sleepTrack__ = __webpack_require__(826);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-/*
-  Generated class for the SleepTrackingProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
-var SleepTrackingProvider = (function () {
-    function SleepTrackingProvider(http, back, dataHolder) {
-        this.http = http;
-        this.back = back;
-        this.dataHolder = dataHolder;
-        this.screenOff = false;
-        console.log('Hello SleepTrackingProvider Provider');
-    }
-    //Do this for 24 hours.  Do this from three pm till three pm.  Find the max, and return the hours asleep for.
-    SleepTrackingProvider.prototype.test = function () {
-        this.back.enable();
-        this.screenOff = false;
-        while (true) {
-            if (this.screenOff === true) {
-                if (!this.back.isScreenOff()) {
-                    this.screenOff = false;
-                    //SAVE THIS AS THE INITIAL TIME.
-                    this.dataHolder.push(new __WEBPACK_IMPORTED_MODULE_3__models_sleepTrack__["a" /* SleepTrack */](this.temp, Date.now(), Date.now() - this.temp));
-                    //OUTPUT (Date.now()-this.temp)/1000; (TIME IN SECONDS THAT SCREEN WAS OFF FOR)
-                }
-            }
-            if (this.screenOff === false) {
-                if (this.back.isScreenOff) {
-                    this.screenOff = true; //SETTING SCREEN OFF TO TRUE
-                    this.temp = Date.now();
-                }
-            }
-        }
-        /*var max = new SleepTrack(0, 0, 0);
-        for (let x = 0; x < this.dataHolder.length; x+=1)
-        {
-          if (this.dataHolder[x].duration > max.duration)
-            max = new SleepTrack(this.dataHolder[x].initialTime, this.dataHolder[x].endTime, this.dataHolder[x].duration);
-        }*/
-    };
-    SleepTrackingProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_background_mode__["a" /* BackgroundMode */], Array])
-    ], SleepTrackingProvider);
-    return SleepTrackingProvider;
-}());
-
-//# sourceMappingURL=sleep-tracking.js.map
-
-/***/ }),
-
-/***/ 826:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SleepTrack; });
-var SleepTrack = (function () {
-    function SleepTrack(i, e, d) {
-        this.initialTime = i;
-        this.endTime = e;
-        this.duration = d;
-    }
-    return SleepTrack;
-}());
-
-//# sourceMappingURL=sleepTrack.js.map
-
-/***/ }),
-
-/***/ 827:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LightProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(487);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(826);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1777,13 +1764,13 @@ var LightProvider = (function () {
 
 /***/ }),
 
-/***/ 828:
+/***/ 827:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SqldatabaseProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_sqlite__ = __webpack_require__(829);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_sqlite__ = __webpack_require__(828);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1848,7 +1835,7 @@ var SqldatabaseProvider = (function () {
 
 /***/ }),
 
-/***/ 834:
+/***/ 833:
 /***/ (function(module, exports) {
 
 /* (ignored) */

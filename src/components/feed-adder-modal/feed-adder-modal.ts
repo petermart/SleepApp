@@ -3,6 +3,7 @@ import {ModalController, ViewController} from 'ionic-angular';
 
 import {Link} from '../../models/Link';
 
+//Michael's code.  This section actually isn't used in the project.
 
 /**
  * Generated class for the FeedAdderModalComponent component.

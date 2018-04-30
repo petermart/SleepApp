@@ -15,9 +15,9 @@
   <ion-list id="alarms-container1" *ngFor = "let alarm of alarms; let i = index" style ="border-top-width: 1px; border-top-style: solid">
       <ion-item-sliding>
         <ion-item id="alarms-toggle2">
-          <ion-label>
+          <ion-label style = "font-size: 1.5em;">
             {{alarm.stringTime}}<br/>
-            <span style = "font-size: 0.5em;">Active: {{alarm.active}}<br/>
+            <span style = "font-size: 0.5em;"><!--Active: {{alarm.active}}<br/>-->
               Enabled: {{alarm.enabled}}</span>
             <!--{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[0]}}:{{alarm.alarmTime.toLocaleString().split(", ")[1].split(":")[1]}} {{alarm.alarmTime.toLocaleString().split(", ")[1].split(" ")[1]}}-->
           </ion-label>

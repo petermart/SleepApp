@@ -3,6 +3,8 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 
+//THIS IS MICHAELS CODE
+
 export class NewsFeed {
 
   static getCategories(http:Http) {

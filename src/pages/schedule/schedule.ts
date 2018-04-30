@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import * as moment from 'moment';
 import { AlertController } from "ionic-angular";
 import { Storage } from "@ionic/storage";
+import { SleepTrackingProvider } from "../../providers/sleep-tracking/sleep-tracking";
 
 @Component({
   selector: 'page-schedule',
@@ -16,10 +17,21 @@ export class SchedulePage {
     mode: 'month',
       currentDate: this.selectedDay
   }
-  constructor(public navCtrl: NavController, private alrtCtrl: AlertController) {
-    this.addEvent('Today', new Date(Date.now()), new Date(Date.now()));
-      this.addEvent('Still', new Date(Date.now()), new Date(Date.now()));
+  constructor(public navCtrl: NavController, private alrtCtrl: AlertController, private tracker:SleepTrackingProvider) {
+      //this.addEvent("OOOH", new Date(Date.now()), new Date(Date.now()));
   }
+    clear()
+    {
+        this.tracker.clearData();
+    }
+  ionViewDidLoad()
+  {
+      this.tracker.fetchEvents().then((events) =>{
+          this.eventSource = events;
+      });
+      //Add events from calendar (these are the times slept for from the sleep tracker)
+  }
+
   addEvent(title:string, start:Date, end:Date) {
       let allday: boolean = false;
       let startTime = start.toISOString();

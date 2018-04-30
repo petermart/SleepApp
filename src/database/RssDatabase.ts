@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Storage} from '@ionic/storage';
 
+//More of Michael's code.  It's a lot for an rss parser I know.
+
 //Link Model
 import {Link} from '../models/Link';
 
